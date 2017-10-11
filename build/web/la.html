@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	
+        <link rel="stylesheet" href="css/animacion_carga.css"
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/miEstilo.css">
+
+
+        <script>  
+
+            $(document).ready(function(){
+                 $("#pass").hover(function (){
+                    $(this).removeClass("resplandor-rojo"); 
+                });
+                
+                $("#email").hover(function(){
+                   $(this).removeClass("resplandor-rojo"); 
+                });
+                
+                
+                $("#iniciarSesion").click(function(){
+                     var parametros = {
+                        "correo" : $("#email").val(),
+                        "password" : $("#pass").val()
+                        };
+                        $.ajax({
+                            data:  parametros, //datos que se envian a traves de ajax
+                            url:   'login', //archivo que recibe la peticion
+                            type:  'post', //método de envio
+                            beforeSend: function () {
+                                    $("#contenedor").html("Procesando, espere por favor...");
+                            },
+                            success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                                    $("#contenedor").html(response);
+                                    $("#email").addClass("resplandor-rojo");
+                                    $("#pass").addClass("resplandor-rojo");
+                            }
+                        });
+                    
+                });
+                
+                $("#registrar").click(function(){
+                    location.href="registrar.html"
+                    
+                    
+                });
+                      
+            });
+      
+        </script>
+            
+        
+
+
+	<title>Pagina Principal</title>
+
+</head>
+<body>
+	<header>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+      			<a class="navbar-brand" href="la.html">Carita Feliz</a>
+    		</div>
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      			<ul class="nav navbar-nav">
+        			<li class="active"><a href="#">Quienes Somos <span class="sr-only">(current)</span></a></li>
+        			<li><a href="#">Contacto</a></li>
+        			<li class="dropdown">
+         	 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos <span class="caret"></span></a>
+          				<ul class="dropdown-menu">
+            				<li><a href="#">Catalogo</a></li>
+            				<li><a href="#">Ofertas</a></li>
+            				<li><a href="#">Kits</a></li>
+
+          				</ul>
+        			</li>
+      			</ul>
+      			<ul class="nav navbar-nav navbar-right">
+        		<li><a href="#"><img src="imagenes/carrito.png" alt=""></a></li>
+        		<li><a href="#" data-toggle="modal" data-target=".login-register-form">Iniciar Sesion</a>
+                        </ul>
+
+      			<form class="navbar-form navbar-right">
+        			<div class="form-group">
+          				<input type="text" class="form-control" placeholder="Buscar">
+        			</div>
+        			<button type="submit" class="btn btn-default"><img src="imagenes/buscar.png" alt=""></button>
+      			</form>
+    		</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+		
+	</header>
+    
+    
+    
+<!--modal se activa al dar click en iniciar session-->
+
+        <div class="modal fade login-register-form" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#login-form"> Login <span class="glyphicon glyphicon-user"></span></a></li>
+                            <li><a data-toggle="tab" id="registrar"> Registrase <span class="glyphicon glyphicon-pencil"></span></a></li>
+                        </ul>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-content">
+                            <div id="login-form" class="tab-pane fade in active">
+                                
+                                <div id="contenedor">
+                                    
+                                </div>
+                                
+                                
+                                <form action="/">
+                                    
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Ingrese Mail" name="email">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="pwd">Contraseña:</label>
+                                        <input type="password" class="form-control" id="pass" placeholder="Ingrese Password" name="pwd">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="remember">Recordarme</label>
+                                    </div>
+                                    
+                                    <input type="button" class="btn btn-default" id="iniciarSesion" value="Iniciar Sesión"/>
+                                </form>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Termina modal de logeo-->
+
+
+
+
+        <div id="fountainG"style='display: none'>
+	<div id="fountainG_1" class="fountainG"></div>
+	<div id="fountainG_2" class="fountainG"></div>
+	<div id="fountainG_3" class="fountainG"></div>
+	<div id="fountainG_4" class="fountainG"></div>
+	<div id="fountainG_5" class="fountainG"></div>
+	<div id="fountainG_6" class="fountainG"></div>
+	<div id="fountainG_7" class="fountainG"></div>
+	<div id="fountainG_8" class="fountainG"></div>
+</div>
+
+	<footer>
+		
+	</footer>
+	
+
+
+</body>
+</html>

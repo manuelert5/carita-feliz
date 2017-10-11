@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/miEstilo.css">
+
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/obtiene_var_url.js"></script>
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  
+  <script type="text/javascript">
+
+   
+   $(document).ready(function(){
+       
+       
+       
+       
+        
+        $("#Text_password").change(function(){
+           if($("#Text_password").val() != $("#Text_rpassword").val())
+           {
+                $("#Text_password").addClass("resplandor-rojo");
+                $("#Text_rpassword").addClass("resplandor-rojo");
+                $("#Boton_guardar").hide();
+                $("#alerta").show();
+                $("#alerta_password").show();
+
+
+           }
+           if($("#Text_password").val() == $("#Text_rpassword").val())
+           {
+                $("#Text_password").removeClass("resplandor-rojo");
+                $("#Text_rpassword").removeClass("resplandor-rojo");
+                $("#Boton_guardar").show();
+                $("#alerta").hide();
+                $("#alerta_correo").hide();
+         
+
+           }
+         });
+      
+        $("#Text_rpassword").change(function(){
+           if($("#Text_password").val() != $("#Text_rpassword").val())
+           {
+                $("#Text_password").addClass("resplandor-rojo");
+                $("#Text_rpassword").addClass("resplandor-rojo");
+                $("#Boton_guardar").hide()
+                $("#alerta").show();
+                $("#alerta_correo").show();;
+
+
+
+           }
+           if($("#Text_password").val() == $("#Text_rpassword").val())
+           {
+                $("#Text_password").removeClass("resplandor-rojo");
+                $("#Text_rpassword").removeClass("resplandor-rojo");
+                $("#Boton_guardar").show();
+                $("#alerta").hide();
+                $("#alerta_correo").hide();
+
+
+           }
+        });
+        
+        $("#Text_email").change(function(){
+            $(this).removeClass("resplandor-rojo");
+            $("#alerta").hide();
+            $("#alerta_correo").hide();
+           
+        });
+      
+      
+        $("#formulario").submit(function(e) {
+            
+            var rol=$(document).getUrlParam("rol");
+            
+            if(rol==null)
+            {
+                //lo va a recuperar de un menu!
+            }
+            
+            
+            e.preventDefault();
+            var data = {
+                    "Text_nombres"      : $("#Text_nombres").val(),
+                    "Text_apellidos"    : $("#Text_apellidos").val(),
+                    "Text_telefono"     : $("#Text_telefono").val(),
+                    "Text_email"        : $("#Text_email").val(),   
+                    "Text_password"     : $("#Text_password").val(),
+                    "Text_socio"        : $("#Text_socio").val(),
+                    "Text_direccion"    : $("#Text_direccion").val(),
+                    "Text_municipio"    : $("#Text_municipio").val(),
+                    "select_depto"      : $("#select_depto option:selected").val(),
+                    "Text_referencia"   : $("#Text_referencia").val(),
+                    "Text_nit"          : $("#Text_nit").val(),
+                    "Text_rol"          : rol
+
+            };
+            $.ajax({
+                    data:  data,
+                    url:   'crea_usuario',
+                    type:  'post',
+                    beforeSend: function () {
+          
+                            $("#con").html($(document).getUrlParam("rol"));
+                    },
+                    success:  function (response) {
+                        if(response=="2627")
+                        {
+                            $("#Text_email").addClass("resplandor-rojo");
+                            $("#alerta").show();
+                            $("#alerta_correo").show();
+                            $("#notifica").show();
+ 
+                        }
+                    }
+            });
+            return  false; 
+        });
+   });
+   
+      
+  </script>
+
+
+
+
+</head>
+
+<body>
+
+<div>
+    <form class="form-horizontal" id="formulario" role="form" >
+    <fieldset>
+
+        <legend>Registro de Usuario</legend>
+
+        <div class="alert alert-danger  center-block clearfix" id="alerta" style='display:none;'>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <span id="alerta_correo" style='display:none;'><strong>Alerta: </strong>El correo eletronico ya esta registrado! </span>
+            <span id="alerta_password" style='display:none;'><strong>Alerta: </strong>Las contraseñas no son iguales! </span>
+            
+        </div>
+        
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Nombres<font color="FF9100">*</font></label> 
+          <div class="col-md-4">
+              <input id="Text_nombres" type="text"  class="form-control input-md" required placeholder="Jose Maria">
+
+          </div>
+        </div>
+        
+                <div id="con"></div>
+
+        
+          <div class="form-group">
+          <label class="col-md-4 control-label">Apellidos<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_apellidos" type="text"  class="form-control input-md" required placeholder="Perez Lima">
+
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-4 control-label">Nit<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_nit" type="text"  class="form-control input-md" required >
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="phone">Telefono<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_telefono" name="phone" type="text"  class="form-control input-md" required pattern="\b\d{4}[-]?\d{4}" placeholder="5555-5555 ó 12345678">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="email">Email<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_email" name="email" type="email" placeholder="ejemplo@hotmail.com" class="form-control input-md" required >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="password">Contraseña<font color="FF9100">*</font></label>
+          <div class="col-md-4">
+            <input id="Text_password" name="password" type="password"  class="form-control input-md" required="">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="rpassword">Confirme su contraseña<font color="FF9100">*</font> 
+          </label>
+          <div class="col-md-4">
+            <input id="Text_rpassword" name="rpassword" type="password"  class="form-control input-md" required="">
+            
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="address1">Socio</label>  
+          <div class="col-md-4">
+          <input id="Text_socio" name="address1" type="text"  placeholder="Ingrese el numero de Socio al que estara asociado" class="form-control input-md">
+    
+          </div>
+        </div>      
+        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="selectbasic">Departamento<font color="FF9100">*</font></label>
+          <div class="col-md-4">
+            <select id="select_depto" name="selectbasic" class="form-control">
+            <option value="Peten">Peten</option>
+            <option value="Izabal">Izabal</option>
+ 
+         
+            </select>
+          </div>
+        </div>
+        
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="city">Municipio<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+          <input id="Text_municipio" name="city" type="text" class="form-control input-md" required="">
+    
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="address1">Direccion<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_direccion" name="address1" type="text"  placeholder="5ta. Avenida Zona 10" class="form-control input-md" required="">
+    
+          </div>
+        </div>
+        
+        
+         <div class="form-group">
+          <label class="col-md-4 control-label" for="address1">Referencia<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_referencia" name="address1" type="text"  placeholder="5ta. Avenida Zona 10" class="form-control input-md" required="">
+    
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label class="col-md-4 control-label" for="address1">Tipo user<font color="FF9100">*</font></label>  
+          <div class="col-md-4">
+              <input id="Text_rol" name="address1" type="text"  placeholder="1-2-3" class="form-control input-md" required="" pattern='^[0-9]*'>
+    
+          </div>
+        </div>
+        
+        
+  
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="save"></label>
+          <div class="col-md-8">
+            <button id="Boton_guardar" name="save" class="btn btn-success" style='display:none;'>Guardar</button>
+            <span id="notifica"></span>
+          </div>
+        </div>
+
+        
+        </fieldset>
+        </form>
+    <div id="notificacion" style='display: none'>
+    <div class="alert alert-danger alert-dismissable">
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        El correo electronico ya existe
+    </div>
+    </div>
+
+        
+	
+</div>
+
+</body>
+
+</html>
