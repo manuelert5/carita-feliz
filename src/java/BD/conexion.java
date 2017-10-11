@@ -21,7 +21,7 @@ public class conexion {
         try{
             
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            BD=DriverManager.getConnection("jdbc:sqlserver://mssql6.gear.host:1433;databaseName=desarrolloWeb","desarrolloweb","1Helado!");
+            BD=DriverManager.getConnection("jdbc:sqlserver://mssql6.gear.host:1433;databaseName=desarrolloWeb","desarrolloweb","1helado!");
         
         }
         catch(Exception e)
