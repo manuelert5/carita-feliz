@@ -21,6 +21,14 @@ public class producto {
     Float   calificacion;
 
     public producto() {
+        this.nombre = null;
+        this.precio = null;
+        this.cat = null;
+        this.subCat = null;
+        this.descripcion = null;
+        this.existencia = null;
+        this.pathImagen = null;
+        
     }
     
 

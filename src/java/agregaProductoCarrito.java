@@ -11,14 +11,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.google.gson.Gson;
+import elementos_sistemas.ProdcutoParaCarrito;
+import BD.procesos;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Manuelert5-Acer
  */
-@WebServlet(urlPatterns = {"/comprueba_inicioSesion"})
-public class comprueba_inicioSesion extends HttpServlet {
+@WebServlet(urlPatterns = {"/agregaProductoCarrito"})
+public class agregaProductoCarrito extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,31 +40,37 @@ public class comprueba_inicioSesion extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            HttpSession session = request.getSession();
-
+            String json = request.getParameter("procutoAgragarCarrito");//obtiene el json
+            Gson gSon=new Gson();//crea objeto del jSOn
             
-            if( session.getAttribute("usuario")==null)
+            ProdcutoParaCarrito producto=gSon.fromJson(json, ProdcutoParaCarrito.class);//parsea el jSon a una clase
+            procesos baseDatos=new  procesos();
+            baseDatos.setEnteros("id_usr", producto.getIdUsr());
+            baseDatos.setEnteros("id_producto", producto.getIdProducto());
+            baseDatos.setEnteros("cantidad", producto.getCantidad());
+            
+            
+            try 
             {
-                out.print("	                  <link rel='stylesheet' href='css/block_error.css'>	");
-                out.print("	                  <script src='js/cuenta_regresiva.js'></script>	");
-                out.print("	         <div class='container col-md-12'>	");
-                out.print("	            <div id='myModal' class='modal fade in' >	");
-                out.print("	                <div class='modal-dialog '>	");
-                out.print("	                    <div class='modal-content' id='block_error'>	");
-                out.print("	                            <div>	");
-                out.print("	                                <h2>Error de logeo</h2>	");
-                out.print("	                                <p><h3>Para acceder a esta parte del sitio debe iniciar sesión primero!</p></h3>    	");
-                out.print("	                                <p><h3>Sera redireccionado  en <span id='seg'>6</span> segundos.</h3></p>	");
-                out.print("	                            </div>	");
-                out.print("	                    </div><!-- /.modal-content -->	");
-                out.print("	                </div><!-- /.modal-dalog -->	");
-                out.print("	            </div><!-- /.modal -->	");
-                out.print("	        </div>	");
-
+                baseDatos.crea_conexion();
+                String resultado=baseDatos.sp_invoca("{call agregaProductoAlCarrito (?,?,?,?) }");
+                out.print(resultado);
+                
+            } 
+            catch (Exception e)
+            {
+                
             }
-            
-            
-            
+            finally
+            {
+                try {
+                    baseDatos.cierra_conexion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(agregaProductoCarrito.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+
         }
     }
 

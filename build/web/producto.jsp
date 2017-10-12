@@ -3,7 +3,7 @@
     Created on : 10/10/2017, 12:19:37 AM
     Author     : Manuelert5-Acer
 --%>
-
+<%@page import="elementos_sistemas.persona"%>
 <%@page import="elementos_sistemas.producto"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="BD.procesos"%>
@@ -14,7 +14,8 @@
         
         <script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-        <script src="js/inicia_sesion.js"></script>    
+        <script src="js/inicia_sesion.js"></script> 
+        <script src="js/agregaProductoCarrito.js"></script>
         
 	
         <link rel="stylesheet" href="css/plantilla.css">
@@ -27,46 +28,56 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="crea_header.jsp" flush="true"/>
+
+        <input id="prueba" class="btn btn-primary" type="button" value="pinchame" onclick="agregaProductoCarrito(1,1);">
+        
     <%
         producto elProducto=new producto();
-        procesos consula=new procesos();
         
-        try
+        if((persona)session.getAttribute("usuario")!=null)
         {
-            consula.crea_conexion();
-            ResultSet rs=consula.llama_funcion("retorna_producto", "1,1");
-            while(rs.next())
+            
+        
+
+            persona usuario=(persona)session.getAttribute("usuario");        
+            int idProducto= Integer.parseInt(request.getParameter("idP"));
+
+            procesos consula=new procesos();
+
+            try
             {
-                elProducto.setNombre(rs.getString("nombre"));
-                elProducto.setPrecio(rs.getFloat("precio"));
-                elProducto.setCat(rs.getString("categoraia"));
-                elProducto.setSubCat("xx");
-                elProducto.setDescripcion(rs.getString("descripcion"));
-                elProducto.setExistencia(rs.getString("existencia"));
-                elProducto.setPathImagen(rs.getString("pathImagen"));
-                elProducto.setCalificacion(rs.getFloat("calificacion"));
+                consula.crea_conexion();
+                String datos="1,1";
+                //String datos=idProducto+",1";
+                //String datos=idProducto+","+usuario.getRol();
+                ResultSet rs=consula.llama_funcion("retorna_producto", datos);
+                while(rs.next())
+                {
+                    elProducto.setNombre(rs.getString("nombre"));
+                    elProducto.setPrecio(rs.getFloat("precio"));
+                    elProducto.setCat(rs.getString("categoraia"));
+                    elProducto.setSubCat("xx");
+                    elProducto.setDescripcion(rs.getString("descripcion"));
+                    elProducto.setExistencia(rs.getString("existencia"));
+                    elProducto.setPathImagen(rs.getString("pathImagen"));
+                    elProducto.setCalificacion(rs.getFloat("calificacion"));
+                }
             }
-        }
-        
-        catch(Exception e)
-        {
-          out.print(e);
-        }
-        
-        finally
-        {
-            consula.cierra_conexion();
+
+            catch(Exception e)
+            {
+              out.print(e);
+            }
+
+            finally
+            {
+                consula.cierra_conexion();
+            }
+            
         }
     %>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
         <div class="container">
             <div class="card">
                 <div class="container-fliud">
@@ -75,6 +86,27 @@
 
                             <div class="preview-pic tab-content">
                                 <div class="tab-pane active" id="pic-1"><img src="https://www.kaft.com/static/images/cache/313/tisort_ozgurruh_1990_313_313.jpg?cacheID=1429301256000"/></div>
+                                
+                                <br>
+                            <div class="well well-sm">
+    
+<div class="row">
+  <div class="col-lg-10">
+    <div class="input-group">
+              <input type="text" class="form-control">
+
+      <span class="input-group-btn">
+        <button class="btn btn-success" type="button">Agregar</button>
+      </span>
+    </div>
+        </div>
+        </div>
+
+  
+                            </div>
+                                
+                                
+                                
                                 <br>
                             
                             
@@ -82,94 +114,107 @@
                                     <div class="row">
                                         <div class="col-md-6 text-center">
                                             <h1 class="rating-num">
-                                                <%out.print(elProducto.getCalificacion());%></h1>
+                                                <%
+                                                    if((persona)session.getAttribute("usuario")!=null)
+                                                        out.print(elProducto.getCalificacion());
+                                                
+                                                %>
+                                            </h1>
                                             <div class="rating">
                                                 <%
-                                                  if(elProducto.getCalificacion()<=5.00 && elProducto.getCalificacion()>4.5)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	");     
-                                                  }
-                                                  
-                                                  if(elProducto.getCalificacion()<4.6 && elProducto.getCalificacion()>3.9)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>  "+ 
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");    
-                                                  } 
-                                                  
-                                                  if(elProducto.getCalificacion()<4 && elProducto.getCalificacion()>3.5)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");    
-                                                  } 
-                                                  
-                                                  if(elProducto.getCalificacion()<3.6 && elProducto.getCalificacion()>2.9)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                   
-                                                  if(elProducto.getCalificacion()<3 && elProducto.getCalificacion()>2.5)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                  
-                                                  if(elProducto.getCalificacion()<2.6 && elProducto.getCalificacion()>1.9)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                  
-                                                   if(elProducto.getCalificacion()<2 && elProducto.getCalificacion()>1.5)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                  
-                                                   if(elProducto.getCalificacion()<1.6 && elProducto.getCalificacion()>0.9)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                  
-                                                  if(elProducto.getCalificacion()<1 && elProducto.getCalificacion()>0.5)
-                                                  {
-                                                      out.print("	<span class='glyphicon glyphicon-star'></span>	"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>"+
-                                                                "       <span class='glyphicon glyphicon-star-empty'></span>");     
-                                                  } 
-                                                  
+                                                    if((persona)session.getAttribute("usuario")!=null)
+                                                    {
+                                                        if(elProducto.getCalificacion()<=5.00 && elProducto.getCalificacion()>4.5)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	");     
+                                                        }
+
+                                                        if(elProducto.getCalificacion()<4.6 && elProducto.getCalificacion()>3.9)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>  "+ 
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");    
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<4 && elProducto.getCalificacion()>3.5)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");    
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<3.6 && elProducto.getCalificacion()>2.9)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<3 && elProducto.getCalificacion()>2.5)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<2.6 && elProducto.getCalificacion()>1.9)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                         if(elProducto.getCalificacion()<2 && elProducto.getCalificacion()>1.5)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                         if(elProducto.getCalificacion()<1.6 && elProducto.getCalificacion()>0.9)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<1 && elProducto.getCalificacion()>0.5)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+
+                                                        if(elProducto.getCalificacion()<0.5 && elProducto.getCalificacion()>=0)
+                                                        {
+                                                            out.print("	<span class='glyphicon glyphicon-star-empty'></span>	"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>"+
+                                                                      "       <span class='glyphicon glyphicon-star-empty'></span>");     
+                                                        } 
+                                                    }
                                                 %>
-                                                
-                                                
-                                                
                                                 
                                             </div>
                                             <div>
@@ -188,7 +233,11 @@
                                     <h4><span class="glyphicon glyphicon-list-alt"></span>   Nombre</h4>
                                 </div>
                                 <div class="panel-body">                        
-                                    <h4><%out.print(elProducto.getNombre());%></h4>
+                                    <h4><%
+                                        if((persona)session.getAttribute("usuario")!=null)
+                                            out.print(elProducto.getNombre());
+                                        %>
+                                    </h4>
                                 </div>
 
                             </div>
@@ -197,7 +246,11 @@
                                      ><h4><span class="glyphicon glyphicon-info-sign"></span>Categoria</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <h4><%out.print(elProducto.getCat());%></h4>
+                                    <h4><%
+                                        if((persona)session.getAttribute("usuario")!=null)
+                                            out.print(elProducto.getCat());
+                                        %>
+                                    </h4>
                                 </div>
                             </div>
 
@@ -206,7 +259,10 @@
                                     <h4><span class="glyphicon glyphicon-comment"></span>   Descipción</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <h4><%out.print(elProducto.getDescripcion());%></h4>
+                                    <h4><%
+                                        if((persona)session.getAttribute("usuario")!=null)                                        
+                                            out.print(elProducto.getDescripcion());%>
+                                    </h4>
                                 </div>
                             </div>
                             <div class="panel panel-primary text-center">
@@ -214,20 +270,14 @@
                                     <h4><span class="glyphicon glyphicon-credit-card"></span>  Precio</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <h2><font color="purple">   Q<%out.print(elProducto.getPrecio());%></h2>
+                                    <h2><font color="purple">   Q<%
+                                                                    if((persona)session.getAttribute("usuario")!=null)
+                                                                        out.print(elProducto.getPrecio());
+                                                                  %>
+                                    </h2>
                                 </div>
                             </div>
-                            <div class="panel panel-default text-center">
-                                    <h3><div class="panel-title"><span class="glyphicon glyphicon-scissors"></span>  Size</div></h3>
-                                    <hr>
-                                    </h3><span class="input-group-addon"><select id="beden" name='beden' class="form-control" name="size">
-                               <option>M</option>
-                               <option>S</option>
-                               <option>XL</option>
 
-                            </select></span>
-                                <br>
-                            </div></h3>
                             <div class="text-center">
                                 <button class="add-to-cart btn btn-default" type="button"><span class="glyphicon glyphicon-gift"></span> Sepete Ekle</button>
                             </div>
