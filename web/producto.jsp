@@ -29,7 +29,8 @@
     </head>
     <body>
         <jsp:include page="crea_header.jsp" flush="true"/>
-
+    <jsp:include page="comprueba_inicioSesion.jsp" flush="true"/>
+        
         <input id="prueba" class="btn btn-primary" type="button" value="pinchame" onclick="agregaProductoCarrito(1,1);">
         
     <%
