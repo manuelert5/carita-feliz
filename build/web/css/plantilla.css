@@ -1569,8 +1569,21 @@ a.urunthumbnail.active {
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 
-
-
 /*# termina el codigo de las estrellas*/
 
+
+
+/*# Parte del contador */
+.popover-markup .popover{
+  width:150%;
+}
+
+.popover-markup label{
+  padding:0px;
+}
+
+.container{
+    margin:0px auto;
+}
+/*# termina el contador */
 

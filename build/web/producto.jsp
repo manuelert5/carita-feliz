@@ -16,7 +16,7 @@
 	<script src="js/bootstrap.min.js"></script>
         <script src="js/inicia_sesion.js"></script> 
         <script src="js/agregaProductoCarrito.js"></script>
-        
+        <script src="js/contadorProducto.jsx" type="text/javascript"></script>
 	
         <link rel="stylesheet" href="css/plantilla.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -93,11 +93,21 @@
 <div class="row">
   <div class="col-lg-10">
     <div class="input-group">
-              <input type="text" class="form-control">
-
-      <span class="input-group-btn">
+             <!-- <input type="text" class="form-control"> -->
+             
+        <div class="input-group number-spinner col-md-7">
+                        <span class="input-group-btn">
+                            <a class="btn btn-danger" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></a>
+                        </span>
+                        <input type="text" name="contador" id="contador" class="form-control text-center" value="0" max=99 min=0>
+                        <span class="input-group-btn">
+                            <a class="btn btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></a>
+                        </span>
+        </div>     
+             
+        <span class="input-group-btn">
         <button class="btn btn-success" type="button">Agregar</button>
-      </span>
+        </span>
     </div>
         </div>
         </div>
