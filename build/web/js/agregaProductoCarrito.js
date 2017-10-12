@@ -16,12 +16,15 @@ function agregaProductoCarrito(idUsr, idProducto){
             type: 'post',
 
         beforeSend: function () {
+            $("#modalCarga").modal('show');
 
         },
         success:  function (response) {
-            alert(response);
-
-
+            $("#modalCarga").modal('hide');
+            if(response==0)
+            {
+                $("#modalAgragadoExito").modal('show');
+            }
         }
     });
         

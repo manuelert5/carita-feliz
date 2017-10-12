@@ -20,17 +20,19 @@
 	
         <link rel="stylesheet" href="css/plantilla.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animacion_carga.css">
 
 	<link rel="stylesheet" href="css/miEstilo.css">
         <link rel="stylesheet" href="css/animacion_carga.css">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+
         <title>JSP Page</title>
     </head>
     <body>
         <jsp:include page="crea_header.jsp" flush="true"/>
         
-        <input id="prueba" class="btn btn-primary" type="button" value="pinchame" onclick="agregaProductoCarrito(1,1);">
         
     <%
         producto elProducto=new producto();
@@ -43,6 +45,8 @@
             persona usuario=(persona)session.getAttribute("usuario");        
             int idProducto= Integer.parseInt(request.getParameter("idP"));
 
+            out.print("<input id='prueba' class='btn btn-primary' type='button' value='pinchame' onclick='agregaProductoCarrito("+usuario.getId()+", "+idProducto+");'>");
+            
             procesos consula=new procesos();
 
             try
@@ -286,6 +290,45 @@
                 </div>
             </div>
         </div>
+                                    
+        <!--modal qeu se motrara mientras carga-->
+    <div class="modal fade bd-example-modal-sm" id="modalCarga">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id='fountainG'>
+                    <div id='fountainG_1' class='fountainG'></div>
+                    <div id='fountainG_2' class='fountainG'></div>
+                    <div id='fountainG_3' class='fountainG'></div>
+                    <div id='fountainG_4' class='fountainG'></div>
+                    <div id='fountainG_5' class='fountainG'></div>
+                    <div id='fountainG_6' class='fountainG'></div>
+                    <div id='fountainG_7' class='fountainG'></div>
+                    <div id='fountainG_8' class='fountainG'></div>
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>
+        
+  <!-- Modal -->
+  <div class="modal fade" id="modalAgragadoExito" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>El producto <%out.print(elProducto.getNombre()); %> se a agregado correctamente!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+        
+        
 
     </body>
 </html>
