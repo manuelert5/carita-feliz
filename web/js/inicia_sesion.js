@@ -78,7 +78,7 @@ function guarda_seleccion_del_afiliado(id)
             }
 
         }
-});
+    });
 
 
 }

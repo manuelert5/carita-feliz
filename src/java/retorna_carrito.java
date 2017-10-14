@@ -50,10 +50,12 @@ public class retorna_carrito extends HttpServlet {
             
             
             try{
-                int  id_seleccion_carrito= (int) session.getAttribute("id_seleccion_carrito");
+                
+                //int  id_seleccion_carrito= (int) session.getAttribute("id_seleccion_carrito");
 
+                
                 data.crea_conexion();
-                ResultSet rs=data.llama_funcion("retorna_carrito", Integer.toString(id_seleccion_carrito));
+                ResultSet rs=data.llama_funcion("retorna_carrito", Integer.toString(12));
             
                 while(rs.next())//cargamos el arreglo de informacion
                 {

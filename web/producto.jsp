@@ -32,6 +32,9 @@
     </head>
     <body>
         <jsp:include page="crea_header.jsp" flush="true"/>
+        <jsp:include page="comprueba_inicioSesion.jsp" flush="true"/>
+        
+
         
         
     <%
@@ -94,7 +97,7 @@
                                 <br>
                             <div class="well well-sm">
     
-<div class="row">
+<div class="row ">
   <div class="col-lg-10">
     <div class="input-group">
              <!-- <input type="text" class="form-control"> -->
@@ -109,14 +112,10 @@
                         </span>
         </div>     
              
-        <span class="input-group-btn">
         <button class="btn btn-success" type="button">Agregar</button>
-        </span>
     </div>
         </div>
         </div>
-
-  
                             </div>
                                 
                                 
@@ -243,7 +242,7 @@
                         </div>
                         <div class="details col-md-6">
                             <div class="panel panel-primary text-center">
-                                <div class="panel-title panel-heading">
+                                <div class="panel-heading">
                                     <h4><span class="glyphicon glyphicon-list-alt"></span>   Nombre</h4>
                                 </div>
                                 <div class="panel-body">                        
