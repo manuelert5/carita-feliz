@@ -52,8 +52,8 @@
                    while(rs.next())
                    {
                       fac.add(new factura(rs.getInt("id_factura"),
-                      rs.getString("fecha"), 
-                      rs.getFloat("total")));
+                                          rs.getString("fecha"), 
+                                          rs.getFloat("total")));
 
 
 
@@ -67,8 +67,9 @@
                                               rs2.getFloat("precio_unitario"), 
                                               rs2.getFloat("subTOtal"));
                        }
+                       indice_factura++;
+
                    }
-                   indice_factura++;
                    
                }
                catch(Exception e)
@@ -87,10 +88,12 @@
            for(int indice_factura=0; indice_factura<fac.size(); indice_factura++)
            {
                out.print("Factura"+fac.get(indice_factura).getId_factua()+"<BR>");
+               
                for(int indice_facDetalle=0; indice_facDetalle<fac.get(indice_factura).getDetalle().size(); indice_facDetalle++)
                {
-
+                   out.print("Detelle"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getId_detalle()+"<BR>");
                }
+               
            }
            
             
