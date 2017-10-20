@@ -113,3 +113,7 @@ FOREIGN KEY (id_categoria_fk) REFERENCES categoria(id_categoria))
 
 
 SELECT * FROM categoria
+
+
+
+select * from producto

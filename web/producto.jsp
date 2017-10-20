@@ -1,3 +1,4 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : producto
     Created on : 10/10/2017, 12:19:37 AM
@@ -17,6 +18,8 @@
         <script src="js/inicia_sesion.js"></script> 
         <script src="js/agregaProductoCarrito.js"></script>
         <script src="js/contadorProducto.jsx" type="text/javascript"></script>
+        <script src="js/scritReusables.js" type="text/javascript"></script>
+        
 	
         <link rel="stylesheet" href="css/plantilla.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -35,29 +38,26 @@
         <jsp:include page="comprueba_inicioSesion.jsp" flush="true"/>
         
 
-        
+   
         
     <%
         producto elProducto=new producto();
+        persona usuario=null;
+        int idProducto=0;
         
         if((persona)session.getAttribute("usuario")!=null)
         {
-            
-        
 
-            persona usuario=(persona)session.getAttribute("usuario");        
-            int idProducto= Integer.parseInt(request.getParameter("idP"));
+            usuario=(persona)session.getAttribute("usuario");        
+            idProducto= Integer.parseInt(request.getParameter("idP"));
 
-            out.print("<input id='prueba' class='btn btn-primary' type='button' value='pinchame' onclick='agregaProductoCarrito("+usuario.getId()+", "+idProducto+");'>");
             
             procesos consula=new procesos();
 
             try
             {
                 consula.crea_conexion();
-                String datos="1,1";
-                //String datos=idProducto+",1";
-                //String datos=idProducto+","+usuario.getRol();
+                String datos=idProducto+","+usuario.getRol();
                 ResultSet rs=consula.llama_funcion("retorna_producto", datos);
                 while(rs.next())
                 {
@@ -106,13 +106,15 @@
                         <span class="input-group-btn">
                             <a class="btn btn-danger" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></a>
                         </span>
-                        <input type="text" name="contador" id="contador" class="form-control text-center" value="0" max=99 min=0>
+            <input type="text" name="contador" id="contador" class="form-control text-center" onkeypress="return  validarNum(event)" value="0" max=99 min=0>
                         <span class="input-group-btn">
                             <a class="btn btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></a>
                         </span>
         </div>     
              
-        <button class="btn btn-success" type="button">Agregar</button>
+             <button class="btn btn-success" type="button" <%   if(usuario!=null && idProducto!=0)
+                                                                out.print(" onclick='agregaProductoCarrito("+usuario.getId()+", "+idProducto+");'");%>>Agregar</button>
+    
     </div>
         </div>
         </div>
@@ -128,14 +130,14 @@
                                         <div class="col-md-6 text-center">
                                             <h1 class="rating-num">
                                                 <%
-                                                    if((persona)session.getAttribute("usuario")!=null)
+                                                    if(usuario!=null && idProducto!=0)
                                                         out.print(elProducto.getCalificacion());
                                                 
                                                 %>
                                             </h1>
                                             <div class="rating">
                                                 <%
-                                                    if((persona)session.getAttribute("usuario")!=null)
+                                                    if(usuario!=null && idProducto!=0)
                                                     {
                                                         if(elProducto.getCalificacion()<=5.00 && elProducto.getCalificacion()>4.5)
                                                         {
@@ -247,20 +249,47 @@
                                 </div>
                                 <div class="panel-body">                        
                                     <h4><%
-                                        if((persona)session.getAttribute("usuario")!=null)
+                                        if(usuario!=null && idProducto!=0)
                                             out.print(elProducto.getNombre());
                                         %>
                                     </h4>
                                 </div>
-
                             </div>
+                            
+                                    
+                                  <!--Precio-->  
+                            <div class="panel panel-primary text-center">
+                                <div class="panel-title panel-heading">
+                                    <h4><span class="glyphicon glyphicon-credit-card"></span>  Precio</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <h4><font color="purple">   Q<%
+                                                                    if(usuario!=null && idProducto!=0)
+                                                                        out.print(elProducto.getPrecio());
+                                                                  %>
+                                                                  
+                                                                  
+                                    </h4>
+                                </div>
+                            </div>
+
+                                    <div class="col-lg-6">
+    <div class="input-group">
+
+      <input type="text" class="form-control" aria-label="Text input with radio button">
+       <span class="input-group-addon">Total</span>
+      <span class="input-group-addon">Q</span>
+      <span class="input-group-addon">0.00</span>
+    </div>
+  </div>
+                                    
                             <div class="panel panel-primary text-center">
                                 <div class="panel-title panel-heading"
                                      ><h4><span class="glyphicon glyphicon-info-sign"></span>Categoria</h4>
                                 </div>
                                 <div class="panel-body">
                                     <h4><%
-                                        if((persona)session.getAttribute("usuario")!=null)
+                                        if(usuario!=null && idProducto!=0)
                                             out.print(elProducto.getCat());
                                         %>
                                     </h4>
@@ -273,23 +302,13 @@
                                 </div>
                                 <div class="panel-body">
                                     <h4><%
-                                        if((persona)session.getAttribute("usuario")!=null)                                        
-                                            out.print(elProducto.getDescripcion());%>
+                                        if(usuario!=null && idProducto!=0)                                      
+                                            out.print(elProducto.getDescripcion());
+                                        %>
                                     </h4>
                                 </div>
                             </div>
-                            <div class="panel panel-primary text-center">
-                                <div class="panel-title panel-heading">
-                                    <h4><span class="glyphicon glyphicon-credit-card"></span>  Precio</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <h2><font color="purple">   Q<%
-                                                                    if((persona)session.getAttribute("usuario")!=null)
-                                                                        out.print(elProducto.getPrecio());
-                                                                  %>
-                                    </h2>
-                                </div>
-                            </div>
+
 
                             <div class="text-center">
                                 <button class="add-to-cart btn btn-default" type="button"><span class="glyphicon glyphicon-gift"></span> Sepete Ekle</button>
@@ -320,14 +339,33 @@
         </div>
     </div>
         
-  <!-- Modal -->
+  <!-- Modal  exito-->
   <div class="modal fade" id="modalAgragadoExito" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-            <p>El producto <%out.print(elProducto.getNombre()); %> se a agregado correctamente!</p>
+            <p>El producto <%   if(usuario!=null && idProducto!=0)
+                                out.print(elProducto.getNombre()); 
+                            %> se a agregado correctamente!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+        
+          <!-- Modal  error-->
+  <div class="modal fade" id="modalAgragadoError" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+            <p id="contenedor_modalError">/p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>

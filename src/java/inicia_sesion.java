@@ -60,7 +60,7 @@ public class inicia_sesion extends HttpServlet {
 
                 if("0".equals(resultado_logeo))
                 {   
-                    id_usr= consulta.getIntSalida("id_usr");
+                      id_usr= consulta.getIntSalida("id_usr");
                     nombre_usr=consulta.getStringSalida("nombre");
                     rol=consulta.getIntSalida("rol");
                     

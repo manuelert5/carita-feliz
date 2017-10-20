@@ -1,6 +1,4 @@
-var script = document.createElement('script');
-script.src = 'jquery-3.2.1.min.js';
-document.getElementsByTagName('head')[0].appendChild(script); 
+
 
 $(function () { 
     var $popover = $('.popover-markup>.trigger').popover({
@@ -55,3 +53,4 @@ $(function () {
   });
   $(".popover-markup>.trigger").popover('show');
 });
+

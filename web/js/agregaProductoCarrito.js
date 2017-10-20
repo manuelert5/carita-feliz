@@ -7,7 +7,7 @@ function agregaProductoCarrito(idUsr, idProducto){
     var cadJson={
         "idUser":   idUsr, 
         "idProducto": idProducto,
-        "Cantidad":3
+        "Cantidad":50
     }
     
         $.ajax({
@@ -25,6 +25,13 @@ function agregaProductoCarrito(idUsr, idProducto){
             {
                 $("#modalAgragadoExito").modal('show');
             }
+            
+            if(response!=0)
+            {
+                $("#modalAgragadoError").modal('show');
+                $("#contenedor_modalError").html(response)
+            }
+            
         }
     });
         
