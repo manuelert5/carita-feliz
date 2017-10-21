@@ -198,11 +198,9 @@
     <div class="modal fade" id="modal_rastreo">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <div id="modalRastreo_encabezado">
-
-                    </div>
-                <table class="table table-striped">
+                <div class="modal-body">
+                
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         
@@ -220,19 +218,13 @@
                     </tbody>
                     
                 </table>
-                </div>
-
-                <div class="modal-body">
-                    <div id="modalRastreo_cuerpo">
-
-                    </div>
                     
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         
                         <th>Fecha</th>
-                        <th>Suceso</th>
+                        <th>Sucesos</th>
 
                     </tr>
                     </thead>
@@ -242,6 +234,7 @@
                     </tbody>
                     
                 </table>
+
                 </div>
             </div>
         </div>
