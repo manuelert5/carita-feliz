@@ -10,7 +10,7 @@ function rastrear(idFact){
     data={
         idFactura: idFact
     }
-   $.ajax({
+    $.ajax({
         data:   data,
         url: 'retornaInfoPedido',
         type: 'post',
@@ -21,7 +21,9 @@ function rastrear(idFact){
         },
         success:  function (response) {
             $('#modalCarga').modal('hide');
-            $("#modalRastreo_cuerpo").html("");
+            //$("#modalRastreo_cuerpo").html("");
+            $("#tb_cuerpo").html("");
+            $("#tb_cuerpo2").html("");
             
             pedido=JSON.parse(response);//parseamos el json 
             seguimiento=pedido.seguimiento;//obtenemos el SubJson 
@@ -40,7 +42,8 @@ function rastrear(idFact){
                                     "<td>"+pedido.peso+"</td>"+
                                     "<td>"+pedido.estado+"</td>"+
                                     "<td>"+pedido.direccion+"</td>"+
-                                    "<td>"+pedido.telefono+"</td>");
+                                    "<td>"+pedido.telefono+"</td>"+
+                                    "</tr>");
             
             
             for(i=0; i<seguimiento.length; i++)
@@ -49,7 +52,8 @@ function rastrear(idFact){
                 //var cuerpo='Fecha '+seguimiento[i].fecha+ ' Suceso '+seguimiento[i].descipcion+"<BR>";
                 $("#tb_cuerpo2").append("<tr>"+
                                     "<td>"+seguimiento[i].fecha+"</td>"+
-                                    "<td>"+seguimiento[i].descipcion+"</td><br>");
+                                    "<td>"+seguimiento[i].descipcion+"</td>"+
+                                    "</tr>");
             }
             
             $("#modal_rastreo").modal('show');
