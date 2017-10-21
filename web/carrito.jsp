@@ -273,7 +273,7 @@ $("#barra_pasos_facturacion").click(function(){
 
                         },
                         success:  function (response) {
-                            alert(response);
+                            
                             
                             obj = JSON.parse(response);
                             var acumula_Total=0;

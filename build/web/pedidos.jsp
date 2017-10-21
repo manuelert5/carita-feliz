@@ -30,6 +30,9 @@
         
     </head>
     <body>
+        <jsp:include page="crea_header.jsp" flush="true"/>
+
+        
         <%
            ArrayList<factura> fac=new ArrayList();
            
@@ -101,11 +104,11 @@
                             "<div class='panel-title'>	"+
                             "   <div class='row'>	"+
                             "       <div class='col-xs-4'>	"+
-                            "           <h5><span class='glyphicon glyphicon-th-list'></span><span id='fecha_pedido'>  Numero Factura: "+fac.get(indice_factura).getId_factua()+" </span></h5>	"+
+                            "           <h5><span class='glyphicon glyphicon-th-list'></span><span id='fecha_pedido'> No."+fac.get(indice_factura).getId_factua()+" </span></h5>	"+
                             "	</div>	"+
                             "           <div class='col-xs-5'>	"+
                             "               <button type='button' class='btn btn-success btn-sm btn-block' onclick='rastrear("+fac.get(indice_factura).getId_factua()+");'>	"+
-                            "                   <span class='glyphicon glyphicon-map-marker'></span> Rastrear pedido	"+
+                            "                   <span class='glyphicon glyphicon-map-marker'></span> Rastrear "+
                             "	        </button>	"+
                             "	    </div>	"+
                             "	    <div class='dropdown col-xs-1'>	"+
@@ -133,8 +136,14 @@
                                     "</div>	"+
                                         "<div class='col-xs-4'>	"+
                                             "<strong id='nombre_producto' class='product-name' >"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getProducto()+"</strong><BR>	"+
-                                                "<small style='color: graytext'>Precio unitario:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
+                                                "<small style='color: graytext'>Precio unitario:Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
                                                 "<small style='color: graytext'>Cantidad:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
+                                                "<small style='color: graytext'>Calificacion:"
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + "</small><BR>	"+
                                         "</div>	"+
                                         "<div class='col-xs-6 text-right'>	"+
                                         "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
@@ -223,7 +232,7 @@
                     <tr>
                         
                         <th>Fecha</th>
-                        <th>Evento</th>
+                        <th>Suceso</th>
 
                     </tr>
                     </thead>
@@ -233,7 +242,6 @@
                     </tbody>
                     
                 </table>
-
                 </div>
             </div>
         </div>
@@ -262,3 +270,4 @@
 
     </body>
 </html>
+
