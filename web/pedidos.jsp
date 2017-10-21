@@ -135,6 +135,16 @@
                                             "<strong id='nombre_producto' class='product-name' >"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getProducto()+"</strong><BR>	"+
                                                 "<small style='color: graytext'>Precio unitario:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
                                                 "<small style='color: graytext'>Cantidad:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
+                                                "<small style='color: graytext'>Calificacion: "
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + ""
+                                                        + "</small><BR>	"+
                                         "</div>	"+
                                         "<div class='col-xs-6 text-right'>	"+
                                         "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
