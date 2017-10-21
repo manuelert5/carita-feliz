@@ -29,16 +29,27 @@ function rastrear(idFact){
             
             
             
-            var encabezado=' Numero Guia: '+pedido.codigo_rastreo+' Peso: '+pedido.peso+' Estado: '+pedido.estado+' Direccion: '+pedido.direccion+ ' Telefono: '+pedido.telefono;
-            $("#modalRastreo_encabezado").html(encabezado);
+//            var encabezado='<p class="text-info"> <strong> Numero Guia: </strong> '+pedido.codigo_rastreo+
+//                    ' <strong>Peso: </strong>'+pedido.peso+' <strong>Estado: </strong>'+pedido.estado+
+//                    ' <strong>Direccion: </strong>'+pedido.direccion+
+//                    ' <strong>Telefono: </strong>'+pedido.telefono+'</p>';
+//            $("#modalRastreo_encabezado").html(encabezado);
+            
+            $("#tb_cuerpo").append("<tr>"+
+                                    "<td>"+pedido.codigo_rastreo+"</td>"+
+                                    "<td>"+pedido.peso+"</td>"+
+                                    "<td>"+pedido.estado+"</td>"+
+                                    "<td>"+pedido.direccion+"</td>"+
+                                    "<td>"+pedido.telefono+"</td>");
+            
             
             for(i=0; i<seguimiento.length; i++)
             {
                 
-                var cuerpo='Fecha '+seguimiento[i].fecha+ ' Suceso'+seguimiento[i].descipcion+"<BR>";
-                $("#modalRastreo_cuerpo").append(cuerpo);
-                 
-                 
+                //var cuerpo='Fecha '+seguimiento[i].fecha+ ' Suceso '+seguimiento[i].descipcion+"<BR>";
+                $("#tb_cuerpo2").append("<tr>"+
+                                    "<td>"+seguimiento[i].fecha+"</td>"+
+                                    "<td>"+seguimiento[i].descipcion+"</td><br>");
             }
             
             $("#modal_rastreo").modal('show');

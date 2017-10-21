@@ -193,12 +193,47 @@
                     <div id="modalRastreo_encabezado">
 
                     </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        
+                        <th>No. de rastreo</th>
+                        <th>Peso</th>
+                        <th>Estado</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+
+                    </tr>
+                    </thead>
+                    
+                    <tbody id="tb_cuerpo">
+                        
+                    </tbody>
+                    
+                </table>
                 </div>
 
                 <div class="modal-body">
                     <div id="modalRastreo_cuerpo">
 
                     </div>
+                    
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        
+                        <th>Fecha</th>
+                        <th>Suceso</th>
+
+                    </tr>
+                    </thead>
+                    
+                    <tbody id="tb_cuerpo2">
+                        
+                    </tbody>
+                    
+                </table>
+                    
                 </div>
             </div>
         </div>
