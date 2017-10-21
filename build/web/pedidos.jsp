@@ -264,6 +264,35 @@
             </div>
         </div>
     </div>
+                    
+    
+    <div class="modal fade" id="modal_reclamo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">Reclamo</div>
+                <div class="modal-body">
+                
+                    <label class="control-label">Motivo</label>
+                    <input type="text" class="form-control" id="inp_motivo">
+                    
+                    <label class="control-label">Descripcion</label>
+                    <textarea class="form-control" rows="3" id="txta_descripcion"></textarea>
+                    
+                
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn btn-success" onclick="guardar()">Guardar</button>
+                    <button class="btn btn-danger" onclick="cerrar()">Cerrar</button>
+                
+                </div>
+                
+            </div>            
+            
+        </div>
+        
+    </div>                
+    
 
     </body>
 

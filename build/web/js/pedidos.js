@@ -5,6 +5,8 @@
  */
 
 
+
+
 function rastrear(idFact){
     
     data={
@@ -63,5 +65,17 @@ function rastrear(idFact){
 }
 
 function reclamar(id){
-    alert(id);
+    $("#modal_reclamo").modal('show');
+}
+
+function guardar(){
+    
+    alert("KKK");
+    
+}
+
+function cerrar(){
+    
+    $("#modal_reclamo").modal('hide');
+    
 }
