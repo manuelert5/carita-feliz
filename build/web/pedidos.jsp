@@ -223,7 +223,7 @@
                     <tr>
                         
                         <th>Fecha</th>
-                        <th>Evento</th>
+                        <th>Suceso</th>
 
                     </tr>
                     </thead>
