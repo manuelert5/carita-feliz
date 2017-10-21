@@ -30,7 +30,6 @@
         
     </head>
     <body>
-        <div class="container">
         <%
            ArrayList<factura> fac=new ArrayList();
            
@@ -83,105 +82,127 @@
                                
                
            }
-           
-
-           for(int indice_factura=0; indice_factura<fac.size(); indice_factura++)
-           {
-               out.print("Factura"+fac.get(indice_factura).getId_factua()+"<BR>");
+         %>
                
+         
+         <div class="container">
+
+         <%
+           
+            for(int indice_factura=0; indice_factura<fac.size(); indice_factura++)
+            {
+                out.print("<div class='row'>	"+
+                            "<div class='col-xs-12'>	"+
+                                "<div class='panel panel-info'>	");
+                //////abre inicio
+                
+                
+                out.print(" <div class='panel-heading'>	"+
+                            "<div class='panel-title'>	"+
+                            "   <div class='row'>	"+
+                            "       <div class='col-xs-4'>	"+
+                            "           <h5><span class='glyphicon glyphicon-th-list'></span><span id='fecha_pedido'>  Numero Factura: "+fac.get(indice_factura).getId_factua()+" </span></h5>	"+
+                            "	</div>	"+
+                            "           <div class='col-xs-5'>	"+
+                            "               <button type='button' class='btn btn-success btn-sm btn-block' onclick='rastrear("+fac.get(indice_factura).getId_factua()+");'>	"+
+                            "                   <span class='glyphicon glyphicon-map-marker'></span> Rastrear pedido	"+
+                            "	        </button>	"+
+                            "	    </div>	"+
+                            "	    <div class='dropdown col-xs-1'>	"+
+                            "               <button type='button' class='btn btn-warning btn-sm btn-block dropdown-toggle ' data-toggle='dropdown'>	"+
+                            "                   <span class='glyphicon glyphicon-option-vertical'></span> 	"+
+                            "	        </button>	"+
+                            "               <ul class='dropdown-menu'>	"+
+                            "                   <li><a href='#' onclick=''>Reclamar paquete</a></li>	"+
+                            "                   <li><a href='#' onclick=''>Cancelar Pedido</a></li>	"+
+                            "	         </ul>	"+
+                            "	    </div>	"+
+                            "       </div>	"+
+                            "   </div>	"+
+                            "</div>	");
+                
+                
+                
+                out.print("<div class='panel-body'>");//abre el panel body
+                
+
                for(int indice_facDetalle=0; indice_facDetalle<fac.get(indice_factura).getDetalle().size(); indice_facDetalle++)
                {
-                   out.print("Detelle"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getId_detalle()+"<BR>");
-               }
+                   out.print("<div class='row'>	"+
+                                "<div class='col-xs-2'><img class='img-responsive' src='http://placehold.it/100x70'>	"+
+                                    "</div>	"+
+                                        "<div class='col-xs-4'>	"+
+                                            "<strong id='nombre_producto' class='product-name' >"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getProducto()+"</strong><BR>	"+
+                                                "<small style='color: graytext'>Precio unitario:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
+                                                "<small style='color: graytext'>Cantidad:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
+                                        "</div>	"+
+                                        "<div class='col-xs-6 text-right'>	"+
+                                        "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
+                                        "</div>	"+
+                                        "</div>	"+
+                                        "<hr>	");
+
+                   
+                   
+                   
+                   
+                   
+                                }
                
-           }
-           
-            
+               out.print("   <div class='row'>	"+
+                         "       <div class='text-right'>	"+
+                         "           <h5><strong>Gastos de envio </strong><strong>sad &nbsp;</strong></h5>	"+
+                         "	</div>	"+
+                       "   </div>	");
+               
+              
+               
+               
+               
+               out.print("</div>	"+  //cierra el panel boy
+                            "<div class='panel-footer'>	"+
+                                "<h3 class='text-right'>Total Q"+fac.get(indice_factura).getTotal()+"</h3>	"+
+                           "</div>	");
+
+               
+              
+               
+               ///cierra inicio
+               out.print("</div></div></div>");
+               
+               
+               
+
+            }
            
            
 
-            
-         %>
-         
-         </div>
+             
+        %>
+        
+      
+        </div><!--Cierra container-->
+
         
         
-        <div class="container">
-                <div class="row">
-                        <div class="col-xs-12">
-                                <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                                <div class="panel-title">
-                                                        <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h5><span class="glyphicon glyphicon-th-list"></span><span id="fecha_pedido">  Factura: </span></h5>
-                                                                </div>
-                                                                <div class="col-xs-5">
-                                                                    <button type="button" class="btn btn-success btn-sm btn-block" onclick="rastrear(1);">
-                                                                                <span class="glyphicon glyphicon-map-marker"></span> Rastrear pedido
-                                                                        </button>
-                                                                </div>
-                                                                    <div class="dropdown col-xs-1">
-                                                                        <button type="button" class="btn btn-warning btn-sm btn-block dropdown-toggle " data-toggle="dropdown">
-                                                                                <span class="glyphicon glyphicon-option-vertical"></span> 
-                                                                        </button>
-                                                                        <ul class="dropdown-menu">
-                                                                            <li><a href="#" onclick="">Reclamar paquete</a></li>
-                                                                            <li><a href="#" onclick="">Cancelar Pedido</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                        <div class="panel-body">
-                                                <div class="row">
-                                                        <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
-                                                        </div>
-                                                        <div class="col-xs-4">
-                                                            <strong id="nombre_producto" class="product-name" >Nombre_producto</strong><BR>
-                                                            <small style="color: graytext">Precio unitario: </small><BR>
-                                                            <small style="color: graytext">Cantidad: </small><BR>
-                                                        </div>
-                                                    
-                                                    
-                                                        <div class="col-xs-6 text-right">
-                                                            <h4><strong>Q25.00&nbsp;</strong></h4>
-                                                        </div>
-                                                </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="text-right">
-                                                   <h5><strong>Gastos de envio </strong><strong>sad &nbsp;</strong></h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="panel-footer">
-                                            <h3 class="text-right">Total <strong id="total_producto"></strong></h3>
-                                        </div>
-                                </div>
-                        </div>
+        <!--Modal Rastreo-->
+    <div class="modal fade" id="modal_rastreo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="modalRastreo_encabezado">
+
+                    </div>
                 </div>
-            
-            
-            
-            <div class="modal fade" id="modal_rastreo">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div id="modalRastreo_encabezado">
-                                
-                            </div>
-                        </div>
 
-                        <div class="modal-body">
-                            <div id="modalRastreo_cuerpo">
-                                
-                            </div>
-                        </div>
+                <div class="modal-body">
+                    <div id="modalRastreo_cuerpo">
+
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
             
             
                     <!--modal qeu se motrara mientras carga-->
@@ -203,7 +224,8 @@
             </div>
         </div>
     </div>
-                     
-        </div>
+
     </body>
 </html>
+
+s
