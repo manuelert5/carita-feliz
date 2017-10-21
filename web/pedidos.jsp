@@ -20,6 +20,7 @@
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/animacion_carga.css" rel="stylesheet">
+        <link href="css/estrellas.css" rel="stylesheet">
         
         <script src="js/jquery-3.2.1.min.js"></script>        
         <script src="js/bootstrap.min.js"></script>
@@ -135,16 +136,17 @@
                                             "<strong id='nombre_producto' class='product-name' >"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getProducto()+"</strong><BR>	"+
                                                 "<small style='color: graytext'>Precio unitario:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
                                                 "<small style='color: graytext'>Cantidad:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
-                                                "<small style='color: graytext'>Calificacion: "
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + ""
-                                                        + "</small><BR>	"+
+                                                "<small class='pull-left' style='color: graytext'>Calificacion: "+
+                                                
+
+
+                                                "</small>	"+"<small>	<span class='stars pull-left'>	"+
+"	                            <i class='glyphicon glyphicon-star'></i>	"+
+"	                            <i class='glyphicon glyphicon-star' ></i>	"+
+"	                            <i class='glyphicon glyphicon-star' ></i>	"+
+"	                            <i class='glyphicon glyphicon-star' ></i>	"+
+"	                            <i class='glyphicon glyphicon-star' ></i>	"+
+"	            </span></small>	"+
                                         "</div>	"+
                                         "<div class='col-xs-6 text-right'>	"+
                                         "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
