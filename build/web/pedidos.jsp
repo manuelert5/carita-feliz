@@ -106,7 +106,7 @@
                             "	</div>	"+
                             "           <div class='col-xs-5'>	"+
                             "               <button type='button' class='btn btn-success btn-sm btn-block' onclick='rastrear("+fac.get(indice_factura).getId_factua()+");'>	"+
-                            "                   <span class='glyphicon glyphicon-map-marker'></span> Rastrear pedido	"+
+                            "                   <span class='glyphicon glyphicon-map-marker'></span> Rastrear"+
                             "	        </button>	"+
                             "	    </div>	"+
                             "	    <div class='dropdown col-xs-1'>	"+
@@ -149,6 +149,7 @@
 "	            </span></small>	"+
                                         "</div>	"+
                                         "<div class='col-xs-6 text-right'>	"+
+                                                        "<a href='#' class='label label-danger' onclick='reclamar(reclamar("+fac.get(indice_factura).getId_factua()+"))'>Reclamar</a>"+
                                         "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
                                         "</div>	"+
                                         "</div>	"+
@@ -265,10 +266,5 @@
     </div>
 
     </body>
-<<<<<<< HEAD
-    
-    
-    kasdkajsdlkasdjdaskldaksdnask
-=======
->>>>>>> parent of 550c4b6... asddasd
+
 </html>

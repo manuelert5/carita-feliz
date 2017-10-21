@@ -60,7 +60,8 @@ function rastrear(idFact){
 
         }
     });
-    
-    
-    
+}
+
+function reclamar(id){
+    alert(id);
 }
