@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/10/2017, 12:08:19 AM
+    Author     : Manuelert5-Acer
+*/
+
+/* Large desktops and laptops */
+
+html,body {
+  height: 100%;
+}
+
+
+
+.carousel {
+  background-color: #000;
+}
+
+@media (min-width: 1200px) {
+
+.carousel-inner > .item > img {
+  height: 85vh;
+  width: 100%;
+}
+
+    
+    
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    
+    .carousel-inner > .item > img {
+      height: 50vh;
+      width: 100%;
+    }
+
+
+}

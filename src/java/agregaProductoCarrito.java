@@ -46,6 +46,8 @@ public class agregaProductoCarrito extends HttpServlet {
             String resultado;
             
             ProdcutoParaCarrito producto=gSon.fromJson(json, ProdcutoParaCarrito.class);//parsea el jSon a una clase
+            
+            
             procesos baseDatos=new  procesos();
             baseDatos.setEnteros("id_usr", producto.getIdUsr());
             baseDatos.setEnteros("id_producto", producto.getIdProducto());

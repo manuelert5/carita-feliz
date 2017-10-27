@@ -149,7 +149,7 @@
 "	            </span></small>	"+
                                         "</div>	"+
                                         "<div class='col-xs-6 text-right'>	"+
-                                                        "<a href='#' class='label label-danger' onclick='reclamar(reclamar("+fac.get(indice_factura).getId_factua()+"))'>Reclamar</a>"+
+                                                        "<a href='#' class='label label-danger' onclick='reclamar("+fac.get(indice_factura).getId_factua()+","+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getId_detalle()+");'>Reclamar</a>"+
                                         "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
                                         "</div>	"+
                                         "</div>	"+
@@ -227,7 +227,7 @@
                     <thead>
                     <tr>
                         
-                        <th>Fecha</th>
+                        <th>Fecha y hora</th>
                         <th>Sucesos</th>
 
                     </tr>
@@ -269,7 +269,6 @@
     <div class="modal fade" id="modal_reclamo">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">Reclamo</div>
                 <div class="modal-body">
                 
                     <label class="control-label">Motivo</label>
@@ -282,8 +281,8 @@
                 </div>
                 <div class="modal-footer">
                     
-                    <button class="btn btn-success" onclick="guardar()">Guardar</button>
-                    <button class="btn btn-danger" onclick="cerrar()">Cerrar</button>
+                    <button class="btn btn-success" onclick="guardaReclamo()">Guardar</button>
+                    <button class="btn btn-danger" id="cer" onclick="cerrar()">Cerrar</button>
                 
                 </div>
                 

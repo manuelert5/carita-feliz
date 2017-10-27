@@ -21,7 +21,8 @@ public class conexion {
         try{
             
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            BD=DriverManager.getConnection("jdbc:sqlserver://mssql6.gear.host:1433;databaseName=desarrolloWeb","desarrolloweb","1helado!");
+        //    BD=DriverManager.getConnection("jdbc:sqlserver://mssql6.gear.host:1433;databaseName=desarrolloWeb","desarrolloweb","1helado!");
+            BD=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=desarrolloWeb","jproyecto","123");
         
         }
         catch(Exception e)
@@ -33,6 +34,14 @@ public class conexion {
     
     public void cierra_conexion() throws SQLException{
         BD.close();
+    }
+    
+    public void commit() throws SQLException{
+        BD.commit();
+    }
+    
+    public void rollback() throws SQLException{
+        BD.rollback();
     }
 
 }

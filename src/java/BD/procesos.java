@@ -116,7 +116,24 @@ public class procesos extends conexion{
         
     }
 
-      
+     public void vaciaCadenas(){
+         cadenas.clear();
+     }
+
+     public void vaciaEnteros(){
+         enteros.clear();
+     }
+
+     public void vaciaDecimal_entrada(){
+         decimal_entrada.clear();
+     }
+
+     public void vaciaCadenasSalida(){
+          cadenasSalida.clear();
+     }
+     public void vaciaEnteroSalida(){
+          enterosSalida.clear();
+     }
     
    
     
@@ -127,7 +144,9 @@ public class procesos extends conexion{
     public String getStringSalida(String parametro) throws SQLException{//recupera un string de salida
         return llamada.getString(parametro);
     }
-
+    public int getEnteroSalida(String parametro) throws SQLException{//recupera un string de salida
+        return llamada.getInt(parametro);
+    }
     
     public void setCadenas(String identificador, String valor) {///establece un dato tip string que se enviara al sp
         cadenas.add(new cadena(identificador,valor));

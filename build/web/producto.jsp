@@ -26,7 +26,6 @@
         <link rel="stylesheet" href="css/animacion_carga.css">
 
 	<link rel="stylesheet" href="css/miEstilo.css">
-        <link rel="stylesheet" href="css/animacion_carga.css">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
@@ -368,7 +367,7 @@
             <p id="contenedor_modalError">/p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-warning" id="cer" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
       

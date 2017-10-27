@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+var idFactura=0;
+var idDetFac=0;
+
+
 
 
 
@@ -64,13 +68,40 @@ function rastrear(idFact){
     });
 }
 
-function reclamar(id){
+function reclamar(idF,idDet){///abre el modal de reclamo;
+    
+    
+    idFactura=idF;
+    idDetFac=idDet;
     $("#modal_reclamo").modal('show');
 }
 
-function guardar(){
+function guardaReclamo(){
     
-    alert("KKK");
+    
+    var cadJson={
+        "idFactura":    idFactura, 
+        "idDetFac":     idDetFac,
+        "motivo":       $("#inp_motivo").val(),
+        "descipcion":   $("#txta_descripcion").val()
+    }
+    
+    
+
+        $.ajax({
+            data:   {reclamo: JSON.stringify(cadJson)}, // le pone nombre al jSOn y convierte la cadena a jSon
+            url: "creaReclamo",
+            type: 'post',
+
+        beforeSend: function () {
+            $("#modalCarga").modal('show');
+            $("#modal_reclamo").modal('hide');
+
+        },
+        success:  function (response) {
+            $("#modalCarga").modal('hide');
+        }
+    });
     
 }
 
