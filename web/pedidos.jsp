@@ -134,26 +134,32 @@
                                     "</div>	"+
                                         "<div class='col-xs-4'>	"+
                                             "<strong id='nombre_producto' class='product-name' >"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getProducto()+"</strong><BR>	"+
-                                                "<small style='color: graytext'>Precio unitario:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
-                                                "<small style='color: graytext'>Cantidad:"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
-                                                "<small class='pull-left' style='color: graytext'>Calificacion: "+
-                                                
-
-
-                                                "</small>	"+"<small>	<span class='stars pull-left'>	"+
-"	                            <i class='glyphicon glyphicon-star'></i>	"+
-"	                            <i class='glyphicon glyphicon-star' ></i>	"+
-"	                            <i class='glyphicon glyphicon-star' ></i>	"+
-"	                            <i class='glyphicon glyphicon-star' ></i>	"+
-"	                            <i class='glyphicon glyphicon-star' ></i>	"+
-"	            </span></small>	"+
-                                        "</div>	"+
-                                        "<div class='col-xs-6 text-right'>	"+
-                                                        "<a href='#' class='label label-danger' onclick='reclamar("+fac.get(indice_factura).getId_factua()+","+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getId_detalle()+");'>Reclamar</a>"+
-                                        "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
-                                        "</div>	"+
-                                        "</div>	"+
-                                        "<hr>	");
+                                                "<small style='color: graytext'>Precio unitario:&nbsp"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getPrecio_unitario()+" </small><BR>	"+
+                                                "<small style='color: graytext'>Cantidad:&nbsp"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getCantidad()+"</small><BR>	"+
+                                                "<small class='pull-left' style='color: graytext'>Calificacion:&nbsp</small>"+
+                                    
+                                                "<span class='clasificacion'>"+
+                                                "<input id='radio1' name='estrellas' onclick='calificar("+fac.get(indice_factura).getId_factua()+"1)'; value='5' type='radio'><!--"+
+                                                "--><label id='"+fac.get(indice_factura).getId_factua()+"1'  for='radio1'>★</label><!--"+
+                                                "--><input id='radio2' name='estrellas' value='4' type='radio'><!--"+
+                                                "--><label id'"+fac.get(indice_factura).getId_factua()+"2' onclick='calificar('"+fac.get(indice_factura).getId_factua()+"2');' for='radio2'>★</label><!--"+
+                                                "--><input id='radio3' name='estrellas' value='3' type='radio'><!--"+
+                                                "--><label id'"+fac.get(indice_factura).getId_factua()+"3' onclick='calificar('"+fac.get(indice_factura).getId_factua()+"3');' for='radio3'>★</label><!--"+
+                                                "--><input id='radio4' name='estrellas' value='2' type='radio'><!--"+
+                                                "--><label id'"+fac.get(indice_factura).getId_factua()+"4' onclick='calificar('"+fac.get(indice_factura).getId_factua()+"4');' for='radio4'>★</label><!--"+
+                                                "--><input id='radio5' name='estrellas' value='1' type='radio'><!--"+
+                                                "--><label id='"+fac.get(indice_factura).getId_factua()+"5' onclick='calificar('"+fac.get(indice_factura).getId_factua()+"5');' for='radio5'>★</label>"+
+                                                "</span>"+
+                                                        
+                                    "<br><a href='#' class='label label-primary' onclick='opinion()'>Opinion</a>"+
+                                    "</div>	"+
+                                    
+                                    "<div class='col-xs-6 text-right'>	"+
+                                    "<a href='#' class='label label-danger' onclick='reclamar("+fac.get(indice_factura).getId_factua()+","+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getId_detalle()+");'>Reclamar</a>"+
+                                    "   <h4><strong>Q"+fac.get(indice_factura).getDetalle().get(indice_facDetalle).getSubTotal()+"0&nbsp;</strong></h4>	"+
+                                    "</div>	"+
+                                    "</div>	"+
+                                    "<hr>	");
 
                    
                    
@@ -275,23 +281,37 @@
                     <input type="text" class="form-control" id="inp_motivo">
                     
                     <label class="control-label">Descripcion</label>
-                    <textarea class="form-control" rows="3" id="txta_descripcion"></textarea>
-                    
-                
+                    <textarea class="form-control" rows="3" id="inp_descripcion"></textarea>
                 </div>
                 <div class="modal-footer">
                     
                     <button class="btn btn-success" onclick="guardaReclamo()">Guardar</button>
                     <button class="btn btn-danger" id="cer" onclick="cerrar()">Cerrar</button>
-                
                 </div>
-                
             </div>            
-            
         </div>
-        
     </div>                
     
+    
+    <div class="modal fade" id="modal_opinion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                
+                    <label class="control-label">Titulo</label>
+                    <input type="text" class="form-control" id="inp_titulo">
+                    
+                    <label class="control-label">Opinion</label>
+                    <textarea class="form-control" rows="3" id="inp_opinion"></textarea>
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn btn-success" onclick="guardaOpinion()">Guardar</button>
+                    <button class="btn btn-danger" id="cer" onclick="cerrarOpinion()">Cerrar</button>
+                </div>
+            </div>            
+        </div>
+    </div>
 
     </body>
 

@@ -7,9 +7,12 @@
 var idFactura=0;
 var idDetFac=0;
 
+var idUsuario=0;
 
-
-
+function calificar(idEstrella){
+    alert(idEstrella);
+    $("#"+idEstrella).addClass("amarillo");
+}
 
 function rastrear(idFact){
     
@@ -33,9 +36,6 @@ function rastrear(idFact){
             
             pedido=JSON.parse(response);//parseamos el json 
             seguimiento=pedido.seguimiento;//obtenemos el SubJson 
-            
-            
-            
             
 //            var encabezado='<p class="text-info"> <strong> Numero Guia: </strong> '+pedido.codigo_rastreo+
 //                    ' <strong>Peso: </strong>'+pedido.peso+' <strong>Estado: </strong>'+pedido.estado+
@@ -68,12 +68,14 @@ function rastrear(idFact){
     });
 }
 
+////////////////////////////////////////////////////////////////////////////
 function reclamar(idF,idDet){///abre el modal de reclamo;
-    
     
     idFactura=idF;
     idDetFac=idDet;
     $("#modal_reclamo").modal('show');
+    $("#inp_motivo").val("");
+    $("#inp_descripcion").val("");
 }
 
 function guardaReclamo(){
@@ -83,7 +85,7 @@ function guardaReclamo(){
         "idFactura":    idFactura, 
         "idDetFac":     idDetFac,
         "motivo":       $("#inp_motivo").val(),
-        "descipcion":   $("#txta_descripcion").val()
+        "descipcion":   $("#inp_descripcion").val()
     }
     
     
@@ -96,10 +98,13 @@ function guardaReclamo(){
         beforeSend: function () {
             $("#modalCarga").modal('show');
             $("#modal_reclamo").modal('hide');
+            $("#inp_motivo").val("");
+            $("#inp_descripcion").val("");
 
         },
         success:  function (response) {
             $("#modalCarga").modal('hide');
+            
         }
     });
     
@@ -108,5 +113,56 @@ function guardaReclamo(){
 function cerrar(){
     
     $("#modal_reclamo").modal('hide');
+    $("#inp_motivo").val("");
+    $("#inp_descripcion").val("");
+    
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function opinion(idU){///abre el modal de opinion
+    
+    idUsuario=idU;
+    $("#modal_opinion").modal('show');
+    $("#inp_titulo").val("");
+    $("#inp_opinion").val("");
+}
+
+function guardaOpinion(){
+    
+    
+    var cadJson={
+        "idUsuario":    idUsuario, 
+        "titulo":       $("#inp_titulo").val(),
+        "opinion":   $("#inp_opinion").val()
+    }
+    
+    
+
+        $.ajax({
+            data:   {reclamo: JSON.stringify(cadJson)}, // le pone nombre al jSOn y convierte la cadena a jSon
+            url: "creaOpinion",
+            type: 'post',
+
+        beforeSend: function () {
+            $("#modalCarga").modal('show');
+            $("#modal_opinion").modal('hide');
+            $("#inp_titulo").val("");
+            $("#inp_opinion").val("");
+
+        },
+        success:  function (response) {
+            $("#modalCarga").modal('hide');
+            
+        }
+    });
+    
+}
+
+function cerrarOpinion(){
+    
+    $("#modal_opinion").modal('hide');
+    $("#inp_titulo").val("");
+    $("#inp_opinion").val("");
     
 }
