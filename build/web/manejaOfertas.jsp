@@ -42,52 +42,43 @@
         <script src="js/bootstrap-datepicker2.js"></script>
         <script src="bootstrapSelect/js/bootstrap-select.js"></script>
 
-        
+
         <link rel='stylesheet' href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/animacion_carga.css">
         <link rel='stylesheet' href="css/menuLateral.css">
         <link rel="stylesheet" href="css/bootstrap-datepicker2.css">
         <link rel="stylesheet" href="bootstrapSelect/css/bootstrap-select.min.css">
         <script>
+        var categorias_en_oferta=[];
 
             $(document).ready(function () {
-                
-                    $("#option_categoria").change(function () {
 
-                        $("#option_categoria option:selected").val();
-                        valor=$("#option_categoria option:selected").text();
-                        aleatorio = Math.round(Math.random()*5);
-                        tipoBoton='';
-                        
-                        if(aleatorio==0){
-                            tipoBoton="btn-default"
-                        }
-                        if(aleatorio==1){
-                            tipoBoton="btn-info"
-                        }
-                        if(aleatorio==2){
-                            tipoBoton="btn-danger"
-                        }
-                        if(aleatorio==3){
-                            tipoBoton="btn-warning"
-                        }
-                        
-                        if(aleatorio==4){
-                            tipoBoton="btn-success"
-                        }
-                        
-                        
-                        if(aleatorio==5){
-                            tipoBoton="btn-primary"
-                        }
-                        
-                        
-                        $("#catSelect").append("<button type='button' class='btn btn-labeled "+tipoBoton+"'>"+
-                                                    "<span class='btn-label'><i class='glyphicon glyphicon-remove'></i></span>"+valor+"</button>&nbsp;&nbsp;");
+                $("#option_categoria").change(function () {
 
+                    idCat=  $("#option_categoria option:selected").val();
+                    valor = $("#option_categoria option:selected").text();
+                    
+                    
+                    $("#option_categoria option:selected").remove();
+                                    
+                    categorias_en_oferta.push({
+                        id_cat:     idCat,
+                        categoria:  valor,
+                        pocentaje:  33
                     });
+        $('.selectpicker').selectpicker('refresh');            
+                    //$("#opcion"+idCat).remove();                    
+                    var i= categorias_en_oferta.length-1;
+                    
+                    $("#tablaCuerpo_categoriaEnDescuento").append("<tr>"+
+                                                                    "<td>"+categorias_en_oferta[i].categoria+"</td>"+
+                                                                    "<td>"+categorias_en_oferta[i].pocentaje+"</td>"+
+                                                                    "<td></td>"+
+                                                                   "</tr>");
 
-                
+                });
+
+
                 $("#formulario_CreaCatalago").submit(function (event) {
                     event.preventDefault();//EVITAR QUE EL FORMULARIO SE ENVIE DE MANERA AUTOMATICA
 
@@ -119,12 +110,6 @@
                         }
                     });
                 });
-
-
-
-
-
-
 
                 $('#cal_inicio').datepicker({
                     format: "yyyy-mm-dd",
@@ -158,6 +143,14 @@
             .btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
             .btn-labeled {padding-top: 0;padding-bottom: 0;}
             .btn { margin-bottom:10px; }
+
+
+            .item_activo{
+                background: #ccc;
+            }
+
+
+
         </style>
 
     </head>
@@ -262,7 +255,7 @@
                                                 <select class="selectpicker form-control" id="option_categoria"  data-live-search="true" data-size="5" >
                                                     <option value='0'>Cualquiera</option>
                                                     <%                                                for (int i = 0; i < cat.size(); i++) {
-                                                            out.print("<option value='" + cat.get(i).getId_categoria() + "'>" + cat.get(i).getCaetegoria() + "</option>");
+                                                            out.print("<option id='opcion"+cat.get(i).getId_categoria()+"' value='" + cat.get(i).getId_categoria() + "'>" + cat.get(i).getCaetegoria() + "</option>");
                                                         }
                                                     %>
                                                 </select>
@@ -278,8 +271,20 @@
 
                             <div class="col-xs-12 col-sm-12" role="form"  id="catSelect">
 
-                                <button type="button" class="btn btn-labeled btn-danger">
-                                    <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel</button>
+                                        <table class="table table-striped table-bordered table-list">
+                                            <thead>
+                                                <tr>
+                                                    <th>Categoria</th>
+                                                    <th><em class="glyphicon glyphicon-tag"></em> Descuento</th>
+                                                    <th><em class="glyphicon glyphicon-wrench" style='width: 4em;'></em></th>
+                                                </tr> 
+                                            </thead>
+                                            <tbody id="tablaCuerpo_categoriaEnDescuento">
+
+
+                                            </tbody>
+                                        </table>
+                                
 
                             </div>
 

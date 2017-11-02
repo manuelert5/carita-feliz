@@ -410,7 +410,9 @@ function  abrirModalEdit(indice) {
 
 
 function  moverAcatalogo() {
+    
     var decision = false;
+    
     for (var x = 0; x < arreglo.length; x++)
     {
         if (arreglo[x].id_product == obj[indice_mover].id_product)
@@ -418,7 +420,6 @@ function  moverAcatalogo() {
             decision = true;
             alert("Este producto ya se encuentra en el catalogo");
         }
-
     }
 
 

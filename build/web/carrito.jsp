@@ -69,7 +69,7 @@ function selecciona_direccion(id){
             alert(respuesta);
         }
     });
-    }
+}
 
 function fun(id){
     var data={
