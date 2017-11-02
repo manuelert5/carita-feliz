@@ -9,43 +9,33 @@ package elementos_sistemas;
  *
  * @author Manuelert5-Acer
  */
-public class catalago {
-    int id;
+public class oferta {
+    int id_oferta;
     String nombre;
-    int    numeroPaginas;
+    String descipcion;
     String fechaInicio;
     String fechaFinaliza;
 
-    public catalago(int id, String nombre, int numeroPaginas, String fechaInicio, String fechaFinaliza) {
-        this.id = id;
+    public oferta(int id_oferta, String nombre, String descipcion, String fechaInicio, String fechaFinaliza) {
+        this.id_oferta = id_oferta;
         this.nombre = nombre;
-        this.numeroPaginas = numeroPaginas;
+        this.descipcion = descipcion;
         this.fechaInicio = fechaInicio;
         this.fechaFinaliza = fechaFinaliza;
     }
 
     
-    
-    public catalago(String nombre, int numeroPaginas, String fechaInicio, String fechaFinaliza) {
-        this.nombre = nombre;
-        this.numeroPaginas = numeroPaginas;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinaliza = fechaFinaliza;
+    public oferta() {
     }
 
-    public catalago() {
+    public int getId_oferta() {
+        return id_oferta;
     }
 
-    public int getId() {
-        return id;
+    public void setId_oferta(int id_oferta) {
+        this.id_oferta = id_oferta;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    
-    
     public String getNombre() {
         return nombre;
     }
@@ -54,16 +44,16 @@ public class catalago {
         this.nombre = nombre;
     }
 
-    public int getNumeroPaginas() {
-        return numeroPaginas;
+    public String getDescipcion() {
+        return descipcion;
     }
 
-    public void setNumeroPaginas(int numeroPaginas) {
-        this.numeroPaginas = numeroPaginas;
+    public void setDescipcion(String descipcion) {
+        this.descipcion = descipcion;
     }
 
     public String getFechaInicio() {
-        return fechaInicio.replace(" ", "");
+        return fechaInicio;
     }
 
     public void setFechaInicio(String fechaInicio) {
@@ -71,12 +61,14 @@ public class catalago {
     }
 
     public String getFechaFinaliza() {
-        return fechaFinaliza.replace(" ", "");
+        return fechaFinaliza;
     }
 
     public void setFechaFinaliza(String fechaFinaliza) {
         this.fechaFinaliza = fechaFinaliza;
     }
+    
+    
     
     
     

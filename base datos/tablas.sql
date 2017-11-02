@@ -117,3 +117,173 @@ SELECT * FROM categoria
 
 
 select * from producto
+
+
+
+create table reclamo (
+id_reclamo INTEGER PRIMARY KEY,
+id_factura_fk	INTEGER,
+fecha			VARCHAR(10),
+FOREIGN KEY (id_factura_fk) REFERENCES factura(id_factura)
+)
+
+create table detalle_reclamo(
+	id_detelle INTEGER PRIMARY KEY,
+	motivo	VARCHAR(75),
+	desripcion	VARCHAR(200),
+	id_detalle_factura_fk INTEGER,
+	id_reclamo_fk	INTEGER,
+	FOREIGN KEY (id_detalle_factura_fk) REFERENCES detalle_factura(id_detalle),
+	FOREIGN KEY (id_reclamo_fk)			REFERENCES reclamo(id_reclamo)
+)
+
+DROP TABLE reclamo
+
+
+
+create or alter procedure inserta_reclamo
+@idFactura	INTEGER,
+@idDetFac	INTEGER,
+@motivo		VARCHAR(75),
+@descipcion VARCHAR (200),
+@retorno	VARCHAR(10) OUTPUT
+AS 
+	DECLARE @idReclamo INTEGER
+	DECLARE @fecha varchar(10)
+	DECLARE @idDetalleReclamo INTEGER
+BEGIN
+	BEGIN TRY
+		BEGIN TRAN inserta
+			SET @idReclamo=(SELECT id_reclamo FROM reclamo WHERE id_factura_fk=@idFactura)
+
+			IF (@idReclamo is null)--si el id reclamo es nulo es porque no se a creado ese reclamo
+			BEGIN
+				SELECT @idReclamo= ISNULL((SELECT MAX(id_reclamo) FROM reclamo),0) +1---RECUPERA EL ULTIMO ID Y LO AGREGA UN NUMERO
+				SET @fecha= (SELECT FORMAT (getdate(), 'dd/MM/yyyy') as VARCHAR);
+
+
+				INSERT INTO reclamo(id_reclamo,id_factura_fk,fecha) VALUES
+								   (@idReclamo,@idFactura,@fecha)
+			END;--TERMINA EL IF
+
+			IF (@idReclamo is not null)
+			BEGIN
+				SET @idDetalleReclamo= ISNULL((SELECT MAX(id_detelle) FROM detalle_reclamo),0)+1
+				
+				INSERT INTO detalle_reclamo(id_detelle, motivo, desripcion, id_detalle_factura_fk, id_reclamo_fk) 
+							VALUES(@idDetalleReclamo,@motivo,@descipcion,@idDetFac,@idReclamo)
+			SET @retorno=@@ERROR;
+
+
+			END--TERMINA EL IF
+			COMMIT TRAN inserta
+
+	END TRY
+
+	BEGIN CATCH
+		SET @retorno=@@ERROR;	
+		ROLLBACK TRAN  inserta
+	END CATCH
+END
+
+execute inserta_reclamo 0,0,'',''
+
+
+select * from reclamo
+select * from detalle_reclamo
+
+
+select * from factura
+select * from detalle_factura
+
+
+select * from producto
+
+select * from categoria
+
+
+create or alter function retorna_categoria()
+RETURNS TABLE
+RETURN
+(
+	select * from categoria where categoraia
+)
+
+
+
+SELECT * FROM retorna_categoria()
+
+
+
+select * from producto where 
+				nombre LIKE '%\'+'a'+'%' ESCAPE '\' OR
+				nombre LIKE '%_'+'A'+'_%' ESCAPE '_'
+
+
+select * from sub_categoria
+
+drop table catalago
+
+create table catalago(
+id_catalago INTEGER PRIMARY KEY,
+nombre		VARCHAR(25),
+paginas		INTEGER,
+fechaInicio	DATE,
+fechaFin    DATE)
+
+
+CREATE OR ALTER PROCEDURE crea_catalago
+@nombre	VARCHAR(25),
+@fechaI VARCHAR(10),
+@fechaF	VARCHAR(10),
+@paginas	INTEGER,
+@retorno	VARCHAR(10) OUTPUT
+
+AS
+	DECLARE @idCatatalago	INTEGER
+	DECLARE @fechaIconver	DATE
+	DECLARE @fechaFconver	DATE
+
+BEGIN
+	BEGIN TRY
+		BEGIN TRAN
+			
+			SET @idCatatalago= ISNULL((SELECT MAX(id_catalago) FROM catalago),0) +1---RECUPERA EL ULTIMO ID Y LO AGREGA UN NUMERO
+			SET @fechaIconver= CONVERT(DATE, @fechaI, 120)
+			SET @fechaFconver= CONVERT(DATE, @fechaF, 120)
+
+
+
+
+			INSERT INTO catalago(id_catalago,	nombre,	paginas,	fechaInicio,	fechaFin) 
+						VALUES  (@idCatatalago, @nombre,@paginas,	@fechaIconver,	@fechaFconver)
+
+			SET @retorno=@@ERROR;
+			PRINT @retorno
+			COMMIT
+
+
+
+
+	
+	END TRY
+	
+	BEGIN CATCH
+		SET @retorno=@@ERROR;
+			PRINT @retorno
+
+		ROLLBACK TRAN
+	END CATCH	
+
+END
+
+
+EXECUTE crea_catalago 'Verano', '31/10/2017', '10/03/2018',24,''
+
+
+select * from catalago
+
+
+
+
+create or alter procedure crea 

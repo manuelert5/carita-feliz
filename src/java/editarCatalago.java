@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Manuelert5-Acer
  */
-@WebServlet(urlPatterns = {"/crea_catalago"})
-public class crea_catalago extends HttpServlet {
+@WebServlet(urlPatterns = {"/editarCatalago"})
+public class editarCatalago extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +40,7 @@ public class crea_catalago extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            
             Gson gSon=new Gson();
             catalago cat=gSon.fromJson(request.getParameter("catalago"), catalago.class);
             procesos data=new procesos();
@@ -48,21 +48,13 @@ public class crea_catalago extends HttpServlet {
             data.setCadenas("fechaI", cat.getFechaInicio());
             data.setCadenas("fechaF", cat.getFechaFinaliza());
             data.setEnteros("paginas", cat.getNumeroPaginas());
-            data.setEnterosSalida("idCatatalago", Integer.SIZE);
-            
-            
+            data.setEnteros("idCat", cat.getId());
+
             try{
                 data.crea_conexion();
-                String resultado_sp=data.sp_invoca(" { call crea_catalago(?,?,?,?,?,?)}");
-                mensjae msj=new mensjae(Integer.parseInt(resultado_sp), data.getIntSalida("idCatatalago"));
-                
-                clienteFtp ftp=new clienteFtp();
-                ftp.conecta();
-                ftp.creaDirectorio(Integer.toString(msj.idCat));
-                ftp.desconecta();
-                String jSon=gSon.toJson(msj);
-                out.print(jSon);
-                
+                String resultado_sp=data.sp_invoca(" { call modifica_catalago(?,?,?,?,?,?)}");
+                out.print(resultado_sp);
+
             }
             catch (Exception e){
                 out.print(e);
@@ -118,35 +110,4 @@ public class crea_catalago extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private class mensjae{
-        int resultado;
-        int     idCat;
-
-        public mensjae(int resultado_sp, int idCat) {
-            this.resultado = resultado_sp;
-            this.idCat = idCat;
-        }
-
-        public int getResultado_sp() {
-            return resultado;
-        }
-
-        public void setResultado_sp(int resultado_sp) {
-            this.resultado = resultado_sp;
-        }
-
-
-        public int getIdCat() {
-            return idCat;
-        }
-
-        public void setIdCat(int idCat) {
-            this.idCat = idCat;
-        }
-        
-        
-    }
-    
 }
-
-

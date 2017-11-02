@@ -42,22 +42,30 @@ public class guardaDetalleCat extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            
             int idCat = Integer.parseInt(request.getParameter("idCat"));
-
+            
             Gson gSon = new Gson();
             ArrayList<detalleCatalogo> arrDet = new ArrayList();
             String g = request.getParameter("detalleCatalago");
             arrDet = gSon.fromJson(request.getParameter("detalleCatalago"), new TypeToken< ArrayList<detalleCatalogo>>() {
             }.getType());
             procesos data = new procesos();
-
+            
             try {
                 data.crea_conexion();
+                data.AutCommit(false);
+                
                 for (int i = 0; i < arrDet.size(); i++) {
-
+                    data.setEnteros("id_producto", arrDet.get(i).getId_product());
+                    data.setEnteros("idCatalgo", idCat);
+                    data.setEnteros("pagina", arrDet.get(i).getPagina());
+                    String resultado = data.sp_invoca("{call guardaDetalle_pagina (?,?,?,?)}");
+                    out.print(resultado);
+                    
                 }
-
+                data.commit();
+                
             } catch (Exception e) {
                 try {
                     data.rollback();
@@ -65,15 +73,16 @@ public class guardaDetalleCat extends HttpServlet {
                     Logger.getLogger(guardaDetalleCat.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 out.print(e);
-
+                
             } finally {
                 try {
+                    data.AutCommit(true);
                     data.cierra_conexion();
                 } catch (SQLException ex) {
                     Logger.getLogger(guardaDetalleCat.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
     }
 

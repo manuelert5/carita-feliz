@@ -20,8 +20,6 @@ public class procesos extends conexion{
     ArrayList<entero> enteros=new ArrayList<>();
     ArrayList<decimales> decimal_entrada=new ArrayList<>();
 
-
-
     ArrayList<cadena> cadenasSalida=new ArrayList<>();
     ArrayList<entero> enterosSalida=new ArrayList<>();
     CallableStatement llamada=null;
@@ -32,11 +30,9 @@ public class procesos extends conexion{
       //cadnea sp es la cadena para llamar al proceidiemtno almacenado
       //tipo de ejecucion  0=no retorna datos masivamente  y 1=recotnara datos masivamente
         
-        
         llamada=BD.prepareCall(cadena_sp);
+        
         llamada.registerOutParameter("retorno", java.sql.Types.VARCHAR);//esta sera el valor de retorno del sp, no dira si existio algun error
-
-
         
         for(int x=0; x!=cadenas.size(); x++)//recorre los valores de tipo string para enviarlos al sp
         {
@@ -64,14 +60,7 @@ public class procesos extends conexion{
             llamada.registerOutParameter(enterosSalida.get(x).idenficador, java.sql.Types.INTEGER);
         }
         
-        
-        
         llamada.execute();//ejecuta el sp
-        
-  
-        
-        
-
         
         return llamada.getString("retorno");//retorna el valor del resultado del sp
         
@@ -191,15 +180,9 @@ public class procesos extends conexion{
         this.lectura_db = lectura_db;
     }
     
-    
     public ResultSet llama_funcion(String nombre_funcion, String parametros) throws SQLException{
         llamada=BD.prepareCall("select * from "+nombre_funcion+"("+parametros+")");
         ResultSet rs=llamada.executeQuery();
         return rs;
     }
-    
-    
-    
-    
-    
 }

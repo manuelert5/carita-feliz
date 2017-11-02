@@ -5,12 +5,13 @@
  */
 
 import BD.procesos;
-import clienetFTP.clienteFtp;
 import com.google.gson.Gson;
 import elementos_sistemas.catalago;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Manuelert5-Acer
  */
-@WebServlet(urlPatterns = {"/crea_catalago"})
-public class crea_catalago extends HttpServlet {
+@WebServlet(urlPatterns = {"/busca_catalagosXfecha"})
+public class busca_catalagosXfecha extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,42 +41,36 @@ public class crea_catalago extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
-            Gson gSon=new Gson();
-            catalago cat=gSon.fromJson(request.getParameter("catalago"), catalago.class);
+            String fechaIncial=request.getParameter("fechaInicio");
+            String fechaFinal=request.getParameter("fechaFinaliza");
+            fechaIncial=fechaIncial.replace(" ", "");
+            fechaFinal=fechaFinal.replace(" ", "");
+            ArrayList<catalago>cat=new ArrayList();
             procesos data=new procesos();
-            data.setCadenas("nombre", cat.getNombre());
-            data.setCadenas("fechaI", cat.getFechaInicio());
-            data.setCadenas("fechaF", cat.getFechaFinaliza());
-            data.setEnteros("paginas", cat.getNumeroPaginas());
-            data.setEnterosSalida("idCatatalago", Integer.SIZE);
-            
-            
             try{
                 data.crea_conexion();
-                String resultado_sp=data.sp_invoca(" { call crea_catalago(?,?,?,?,?,?)}");
-                mensjae msj=new mensjae(Integer.parseInt(resultado_sp), data.getIntSalida("idCatatalago"));
-                
-                clienteFtp ftp=new clienteFtp();
-                ftp.conecta();
-                ftp.creaDirectorio(Integer.toString(msj.idCat));
-                ftp.desconecta();
-                String jSon=gSon.toJson(msj);
-                out.print(jSon);
-                
+                ResultSet rs=data.llama_funcion("buscaCatalagoXfecha", "'"+fechaIncial+"','"+fechaFinal+"'");
+                while (rs.next()){
+                    cat.add(new catalago(rs.getInt("id_catalago"),
+                                         rs.getString("nombre"), 
+                                         rs.getInt("paginas"),
+                                         rs.getString("fechaInicio"),
+                                         rs.getString("fechaFin")));
+                }
+                Gson gSon=new Gson();
+                out.print(gSon.toJson(cat));
             }
-            catch (Exception e){
+            catch(Exception e){
                 out.print(e);
             }
-
-            
             finally{
                 try {
                     data.cierra_conexion();
                 } catch (SQLException ex) {
-                    Logger.getLogger(crea_catalago.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(busca_catalagosXfecha.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
         }
     }
 
@@ -118,35 +113,4 @@ public class crea_catalago extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private class mensjae{
-        int resultado;
-        int     idCat;
-
-        public mensjae(int resultado_sp, int idCat) {
-            this.resultado = resultado_sp;
-            this.idCat = idCat;
-        }
-
-        public int getResultado_sp() {
-            return resultado;
-        }
-
-        public void setResultado_sp(int resultado_sp) {
-            this.resultado = resultado_sp;
-        }
-
-
-        public int getIdCat() {
-            return idCat;
-        }
-
-        public void setIdCat(int idCat) {
-            this.idCat = idCat;
-        }
-        
-        
-    }
-    
 }
-
-

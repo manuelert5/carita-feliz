@@ -1,0 +1,166 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 1/11/2017, 12:52:59 AM
+    Author     : Manuelert5-Acer
+*/
+
+.container{
+    z-index: 2;/*nivel de superposision*/
+}
+.left, .right {
+    float:left;
+    height:100vh;
+    cursor: pointer;
+}
+
+.left {
+    background: #337ab7;
+    display: inline-block;
+    white-space: nowrap;
+    width: 45px;
+    transition: width 1s ;
+    z-index: 1;/*nivel de superposicion*/
+}
+
+.right {
+    background: #fff;
+    width: 350px;
+    transition: width 1s;
+    border-style:solid;
+    border-color:#ccc;
+    border-width:1px;
+}    
+
+.left:hover {
+    width: 190px;/*anchura cuando pasa el cursor */
+}    
+
+.item:hover {
+    background-color:#ccc;
+}
+
+.left .glyphicon {
+    margin:15px;
+    width:20px;
+    color:#fff;
+}
+
+.right .glyphicon {
+    color:#a9a9a9;
+}
+span.glyphicon.glyphicon-refresh{
+    font-size:17px;
+    vertical-align: middle !important;
+}
+
+.item {
+    height:50px;
+    overflow:hidden;
+    color:#fff;
+}
+
+@media (max-width: 992px) { 
+    .left:hover {
+        width: 45px;/*evitar que se expanda en modo telefono*/
+    }  
+    .categoria{
+        display: none;
+    }
+
+}
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+    .left{
+
+        position:absolute;left:0%;   
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+
+    .left{
+
+        position:absolute;left:0%;   
+    }
+
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+    .left{
+
+        position:absolute;left:0%;   
+    }
+
+}
+
+
+.panel{
+    margin-left: 1em;
+
+}
+.panel-table{
+    margin-left: 0px;
+}
+.panel-table .panel-body{
+    padding:0;
+}
+
+.panel-table .panel-body .table-bordered{
+    border-style: none;
+    margin:0;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type {
+    text-align:center;
+    width: 100px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
+    border-right: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
+    border-left: 0px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td{
+    border-bottom: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr:first-of-type > th{
+    border-top: 0px;
+}
+
+.panel-table .panel-footer .pagination{
+    margin:0; 
+}
+
+/*
+used to vertically center elements, may need modification if you're not using default sizes.
+*/
+.panel-table .panel-footer .col{
+    line-height: 34px;
+    height: 34px;
+}
+
+.panel-table .panel-heading .col h3{
+    line-height: 30px;
+    height: 30px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr > td{
+    line-height: 34px;
+}
+
+.item_activo{
+    background: #ccc;
+}
+

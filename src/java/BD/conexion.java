@@ -43,5 +43,11 @@ public class conexion {
     public void rollback() throws SQLException{
         BD.rollback();
     }
+    
+    public void AutCommit(Boolean b) throws SQLException{
+        BD.setAutoCommit(b);
+    }
+    
+    
 
 }
