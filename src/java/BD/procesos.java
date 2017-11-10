@@ -22,6 +22,9 @@ public class procesos extends conexion{
 
     ArrayList<cadena> cadenasSalida=new ArrayList<>();
     ArrayList<entero> enterosSalida=new ArrayList<>();
+    ArrayList<decimales> decimalSalida=new ArrayList<>();
+    
+    
     CallableStatement llamada=null;
     ResultSet lectura_db=null;
 
@@ -58,6 +61,11 @@ public class procesos extends conexion{
         for(int x=0; x!=enterosSalida.size(); x++)//recorre los valores de tipo integer para enviarlos al sp pero representaran valores de salida
         {
             llamada.registerOutParameter(enterosSalida.get(x).idenficador, java.sql.Types.INTEGER);
+        }
+        
+        for(int x=0; x!=decimalSalida.size(); x++)//recorre los valores de tipo decimal para enviarlos al sp pero representaran valores de salida
+        {
+            llamada.registerOutParameter(decimalSalida.get(x).identificador, java.sql.Types.DECIMAL);
         }
         
         llamada.execute();//ejecuta el sp
@@ -101,6 +109,9 @@ public class procesos extends conexion{
             llamada.registerOutParameter(enterosSalida.get(x).idenficador, java.sql.Types.INTEGER);
         }
         
+
+        
+        
         return llamada.executeQuery();//ejecuta el sp
         
     }
@@ -124,6 +135,9 @@ public class procesos extends conexion{
           enterosSalida.clear();
      }
     
+    public float getDecimal(String parametro) throws SQLException{//recupera un entero de salida
+        return llamada.getFloat(parametro);
+    }
    
     
     public int getIntSalida(String parametro) throws SQLException{//recupera un entero de salida
@@ -151,7 +165,13 @@ public class procesos extends conexion{
 
     public void setEnterosSalida(String identificador, Integer valor) {//establece un dato tipo entero que se enviara al sp, pero este sera un dato de salida del sp
         enterosSalida.add(new entero(identificador, valor));
+    
     }
+    
+    public void setDecimalSalida(String identificador, float valor) {//establece un dato tipo entero que se enviara al sp, pero este sera un dato de salida del sp
+        decimalSalida.add(new decimales(identificador, valor));
+    }
+        
     
     
     public void setDecimal_entrada(String identificador, Float Valor) {

@@ -48,8 +48,7 @@ public class guardaDetalleCat extends HttpServlet {
             Gson gSon = new Gson();
             ArrayList<detalleCatalogo> arrDet = new ArrayList();
             String g = request.getParameter("detalleCatalago");
-            arrDet = gSon.fromJson(request.getParameter("detalleCatalago"), new TypeToken< ArrayList<detalleCatalogo>>() {
-            }.getType());
+            arrDet = gSon.fromJson(request.getParameter("detalleCatalago"), new TypeToken< ArrayList<detalleCatalogo>>() {}.getType());
             procesos data = new procesos();
             
             try {

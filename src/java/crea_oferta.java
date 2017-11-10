@@ -46,11 +46,22 @@ public class crea_oferta extends HttpServlet {
             data.setCadenas("descripcion", ofer.getDescipcion());
             data.setCadenas("fechaInicio", ofer.getFechaInicio());
             data.setCadenas("fechaFin", ofer.getFechaFinaliza());
+            data.setEnterosSalida("idOferta", Integer.SIZE);
+            
             
             try {
                 data.crea_conexion();
-                String resultado=data.sp_invoca("{ call crea_oferta(?,?,?,?,?) }");
-                out.print(resultado);
+                
+                String resultado=data.sp_invoca("{ call crea_oferta(?,?,?,?,?,?) }");
+                int idOferta=data.getEnteroSalida("idOferta");
+                
+                RetornoOferta retorno=new RetornoOferta();
+                retorno.setIdOferta(idOferta);
+                retorno.setResultado(resultado);
+                
+                out.print(gSon.toJson(retorno));
+                
+                
             } 
             catch (Exception e) {
                 out.print(e);
@@ -65,6 +76,7 @@ public class crea_oferta extends HttpServlet {
             
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -106,3 +118,34 @@ public class crea_oferta extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+class RetornoOferta{
+    int idOferta;
+    String resultado;
+
+    public RetornoOferta() {
+    }
+
+    public int getIdOferta() {
+        return idOferta;
+    }
+
+    public void setIdOferta(int idOferta) {
+        this.idOferta = idOferta;
+    }
+
+    public String getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+    
+    
+    
+}
+
+
+

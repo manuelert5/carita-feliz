@@ -51,20 +51,12 @@ public class elimina_carrito extends HttpServlet {
             {
                 proc.crea_conexion();
                 String x=proc.sp_invoca(" { call elimina_carrito(?,?)}");
-                System.err.println(x);
-                if("0".equals(x))//si el resultado es correcto
-                {
-                    response.sendRedirect("carrito.jsp");
-                }
-                else
-                {
-                    out.print("Error! recarge la pagina");//le regresamos el error
-                }
+                out.print(x);
                 
             }
             catch (Exception e)
             {
-                System.err.println(e);
+                out.print(e);
             }
             finally
             {

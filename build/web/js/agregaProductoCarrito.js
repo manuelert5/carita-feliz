@@ -1,13 +1,10 @@
-var script = document.createElement('script');
-script.src = 'jquery-3.2.1.min.js';
-document.getElementsByTagName('head')[0].appendChild(script); 
 
-function agregaProductoCarrito(idUsr, idProducto){
+function agregaProductoCarrito(idUsr, idProducto, cantidad){
     
     var cadJson={
         "idUser":   idUsr, 
         "idProducto": idProducto,
-        "Cantidad":50
+        "Cantidad":cantidad
     }
     
         $.ajax({
@@ -24,6 +21,7 @@ function agregaProductoCarrito(idUsr, idProducto){
             if(response==0)
             {
                 $("#modalAgragadoExito").modal('show');
+                
             }
             
             if(response!=0)

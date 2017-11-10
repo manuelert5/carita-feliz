@@ -30,6 +30,15 @@ public class producto_en_el_carrrito {
         this.url_imagen = ur_imagen;
         this.id_producto=id_producto;
     }
+    
+    
+    public producto_en_el_carrrito(String nombre, Float precio, int cantidad) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+    
+    
 
     public Float getPrecio() {
         return precio;

@@ -24,6 +24,16 @@ public class oferta {
         this.fechaFinaliza = fechaFinaliza;
     }
 
+    public oferta(int id_oferta, String nombre, String fechaInicio, String fechaFinaliza) {
+        this.id_oferta = id_oferta;
+        this.nombre = nombre;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinaliza = fechaFinaliza;
+    }
+
+
+    
+
     
     public oferta() {
     }

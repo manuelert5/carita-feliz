@@ -39,9 +39,9 @@ public class crea_usuario extends HttpServlet {
             String email        =   request.getParameter("Text_email");
             String password     =   request.getParameter("Text_password");
             Integer socio       =   Integer.parseInt(request.getParameter("Text_socio"));
-            String direccion    =   request.getParameter("Text_direccion");
-            String municipio    =   request.getParameter("Text_municipio");
-            String departamento =   request.getParameter("select_depto");
+            String  direccion   =   request.getParameter("Text_direccion");
+            Integer municipio   =   Integer.parseInt(request.getParameter("Text_municipio"));
+            Integer departamento =  Integer.parseInt(request.getParameter("select_depto"));
             String referencia   =   request.getParameter("Text_referencia");            
             String nit          =   request.getParameter("Text_nit");
             Integer rol         =   Integer.parseInt(request.getParameter("Text_rol"));
@@ -53,8 +53,8 @@ public class crea_usuario extends HttpServlet {
             proc.setCadenas("email", email);
             proc.setCadenas("contraseña", password);
             proc.setCadenas("nit", nit);
-            proc.setCadenas("departamento", departamento);
-            proc.setCadenas("municipio", municipio);
+            proc.setEnteros("departamento", departamento);
+            proc.setEnteros("municipio", municipio);
             proc.setCadenas("referencia", referencia);
             proc.setCadenas("telefono", telefono);
             proc.setCadenas("direccion", direccion);
